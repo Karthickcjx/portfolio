@@ -1,0 +1,9 @@
+node_modules/
+.env
+.env.*
+!.env.example
+.admin-bootstrap.json
+npm-debug.log*
+.server*.log
+data/messages.json
+*.tmp

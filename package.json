@@ -1,0 +1,27 @@
+{
+  "name": "karthick-portfolio",
+  "version": "1.0.0",
+  "description": "Production-ready portfolio web application with a protected admin dashboard.",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "hash-password": "node scripts/hash-password.js",
+    "check": "node --check server.js && node --check src/auth.js && node --check src/config.js && node --check src/password.js && node --check src/storage.js && node --check src/validation.js && node --check public/js/app.js && node --check private/admin.js && node --check private/login.js"
+  },
+  "keywords": [
+    "portfolio",
+    "express",
+    "admin"
+  ],
+  "author": "Karthick Raja G",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0"
+  }
+}

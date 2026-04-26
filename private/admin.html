@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Admin Dashboard - Karthick Raja G</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script defer src="/admin/assets/admin.js"></script>
+  </head>
+  <body data-page="admin">
+    <header class="admin-topbar">
+      <div>
+        <p class="section-kicker">Admin Control</p>
+        <h1>Portfolio Dashboard</h1>
+      </div>
+      <div class="admin-actions">
+        <a class="button button-secondary" href="/" target="_blank" rel="noreferrer">View Site</a>
+        <button id="logout-button" class="button button-danger" type="button">Logout</button>
+      </div>
+    </header>
+
+    <main class="admin-shell">
+      <nav class="admin-tabs" aria-label="Admin sections">
+        <button class="admin-tab is-active" type="button" data-tab="profile-panel">Profile</button>
+        <button class="admin-tab" type="button" data-tab="projects-panel">Projects</button>
+        <button class="admin-tab" type="button" data-tab="skills-panel">Skills</button>
+        <button class="admin-tab" type="button" data-tab="certs-panel">Certs</button>
+        <button class="admin-tab" type="button" data-tab="messages-panel">Messages</button>
+      </nav>
+
+      <section id="profile-panel" class="admin-panel is-active">
+        <form id="profile-form" class="admin-form">
+          <div class="admin-grid">
+            <div class="form-field">
+              <label for="admin-name">Full Name</label>
+              <input id="admin-name" name="name" required>
+            </div>
+            <div class="form-field">
+              <label for="admin-role">Role / Title</label>
+              <input id="admin-role" name="role" required>
+            </div>
+            <div class="form-field">
+              <label for="admin-email">Email</label>
+              <input id="admin-email" name="email" type="email">
+            </div>
+            <div class="form-field">
+              <label for="admin-phone">Phone</label>
+              <input id="admin-phone" name="phone">
+            </div>
+            <div class="form-field">
+              <label for="admin-linkedin">LinkedIn URL</label>
+              <input id="admin-linkedin" name="linkedin" type="url">
+            </div>
+            <div class="form-field">
+              <label for="admin-github">GitHub URL</label>
+              <input id="admin-github" name="github" type="url">
+            </div>
+            <div class="form-field">
+              <label for="admin-education">Education</label>
+              <input id="admin-education" name="education">
+            </div>
+            <div class="form-field">
+              <label for="admin-footer">Footer</label>
+              <input id="admin-footer" name="footer">
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="admin-summary">Hero Summary</label>
+            <textarea id="admin-summary" name="heroSummary" rows="3"></textarea>
+          </div>
+          <div class="admin-grid">
+            <div class="form-field">
+              <label for="admin-bio">Bio Paragraphs</label>
+              <textarea id="admin-bio" name="bio" rows="7"></textarea>
+            </div>
+            <div class="form-field">
+              <label for="admin-badges">Badges</label>
+              <textarea id="admin-badges" name="badges" rows="7"></textarea>
+            </div>
+            <div class="form-field">
+              <label for="admin-roles">Hero Roles</label>
+              <textarea id="admin-roles" name="roles" rows="5"></textarea>
+            </div>
+            <div class="form-field">
+              <label for="admin-cube">Cube Labels</label>
+              <textarea id="admin-cube" name="cubeFaces" rows="5"></textarea>
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="admin-stats">Stats</label>
+            <textarea id="admin-stats" name="stats" rows="5"></textarea>
+          </div>
+          <button class="button button-primary" type="submit">Save Profile</button>
+          <p class="form-status" data-status="profile"></p>
+        </form>
+      </section>
+
+      <section id="projects-panel" class="admin-panel">
+        <form id="project-form" class="admin-form">
+          <input id="project-id" type="hidden">
+          <div class="admin-grid">
+            <div class="form-field">
+              <label for="project-title">Title</label>
+              <input id="project-title" required>
+            </div>
+            <div class="form-field">
+              <label for="project-date">Date Range</label>
+              <input id="project-date">
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="project-description">Description</label>
+            <textarea id="project-description" rows="4"></textarea>
+          </div>
+          <div class="admin-grid">
+            <div class="form-field">
+              <label for="project-url">Project URL</label>
+              <input id="project-url" type="url">
+            </div>
+            <div class="form-field">
+              <label for="project-techs">Tech Stack</label>
+              <input id="project-techs">
+            </div>
+            <div class="form-field">
+              <label for="project-stats">Stats</label>
+              <input id="project-stats">
+            </div>
+          </div>
+          <div class="form-row">
+            <button class="button button-primary" type="submit">Save Project</button>
+            <button id="project-reset" class="button button-secondary" type="button">Clear</button>
+          </div>
+          <p class="form-status" data-status="projects"></p>
+        </form>
+        <div id="project-list" class="admin-list"></div>
+      </section>
+
+      <section id="skills-panel" class="admin-panel">
+        <form id="skill-form" class="admin-form">
+          <input id="skill-index" type="hidden">
+          <div class="admin-grid">
+            <div class="form-field">
+              <label for="skill-category">Category</label>
+              <input id="skill-category" required>
+            </div>
+            <div class="form-field">
+              <label for="skill-items">Skills</label>
+              <input id="skill-items" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <button class="button button-primary" type="submit">Save Skills</button>
+            <button id="skill-reset" class="button button-secondary" type="button">Clear</button>
+          </div>
+          <p class="form-status" data-status="skills"></p>
+        </form>
+        <div id="skill-list" class="admin-list"></div>
+      </section>
+
+      <section id="certs-panel" class="admin-panel">
+        <form id="cert-form" class="admin-form">
+          <input id="cert-id" type="hidden">
+          <div class="admin-grid">
+            <div class="form-field">
+              <label for="cert-name">Certification</label>
+              <input id="cert-name" required>
+            </div>
+            <div class="form-field">
+              <label for="cert-issuer">Issuer</label>
+              <input id="cert-issuer">
+            </div>
+            <div class="form-field">
+              <label for="cert-year">Year</label>
+              <input id="cert-year">
+            </div>
+          </div>
+          <div class="form-row">
+            <button class="button button-primary" type="submit">Save Cert</button>
+            <button id="cert-reset" class="button button-secondary" type="button">Clear</button>
+          </div>
+          <p class="form-status" data-status="certs"></p>
+        </form>
+        <div id="cert-list" class="admin-list"></div>
+      </section>
+
+      <section id="messages-panel" class="admin-panel">
+        <div id="message-list" class="admin-list"></div>
+      </section>
+    </main>
+  </body>
+</html>

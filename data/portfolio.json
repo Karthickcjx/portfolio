@@ -1,0 +1,204 @@
+{
+  "profile": {
+    "name": "Karthick Raja G",
+    "role": "DevOps & Full-Stack Developer",
+    "heroSummary": "Results-driven DevOps and Full-Stack Developer building scalable serverless applications on AWS, designing RESTful APIs, and deploying containerized systems with precision.",
+    "bio": [
+      "I'm a DevOps and Full-Stack Developer pursuing B.Tech in Information Technology at Adhiparasakthi College of Engineering, Ranipet (2022-2026), with a CGPA of 7.8.",
+      "Passionate about CI/CD pipelines, Infrastructure as Code, and serverless architectures. I use AI-assisted tools like GitHub Copilot and Claude to ship faster and smarter.",
+      "I architect scalable solutions on AWS and build full-stack systems, from real-time employee monitoring to OTT streaming platforms with 50K+ monthly users."
+    ],
+    "badges": [
+      "AWS Serverless",
+      "Docker",
+      "CI/CD",
+      "React.js",
+      "Node.js",
+      "IaC",
+      "WebSockets",
+      "JWT Auth"
+    ],
+    "email": "karthick.ganesan077@gmail.com",
+    "phone": "+91 8610240879",
+    "linkedin": "https://linkedin.com/in/karthick-raja-520421263",
+    "github": "https://github.com/Karthickcjx",
+    "education": "B.Tech IT - CGPA 7.8",
+    "avatar": "/assets/profile.jpg",
+    "footer": "2026 - KARTHICK RAJA G - ALL SYSTEMS ONLINE",
+    "roles": [
+      "DevOps Engineer",
+      "Full-Stack Developer",
+      "AWS Architect",
+      "Cloud Engineer",
+      "Problem Solver"
+    ],
+    "cubeFaces": [
+      "AWS",
+      "Docker",
+      "React",
+      "Node.js",
+      "CI/CD",
+      "MySQL"
+    ],
+    "stats": [
+      {
+        "label": "Projects",
+        "value": 4,
+        "suffix": ""
+      },
+      {
+        "label": "Certs",
+        "value": 3,
+        "suffix": ""
+      },
+      {
+        "label": "OTT uptime",
+        "value": 99.9,
+        "suffix": "%"
+      },
+      {
+        "label": "OTT MAU",
+        "value": 50,
+        "suffix": "K+"
+      }
+    ]
+  },
+  "projects": [
+    {
+      "id": "productivity-monitoring-system",
+      "title": "Productivity Monitoring System",
+      "date": "Mar 2026 - Apr 2026",
+      "description": "Engineered a real-time employee productivity monitoring system achieving 95% accuracy using webcam-based face detection, emotion recognition, and behavior analytics. Built with React, Node.js, MySQL, Redis, Prisma, and Docker.",
+      "url": "https://github.com/premkumar002277/productivity_monitor",
+      "techs": [
+        "React",
+        "Node.js",
+        "MySQL",
+        "Redis",
+        "Prisma",
+        "Docker",
+        "WebSockets"
+      ],
+      "stats": [
+        "95% accuracy",
+        "2-month build"
+      ]
+    },
+    {
+      "id": "ott-video-streaming-platform",
+      "title": "OTT Video Streaming Platform",
+      "date": "Feb 2026 - Mar 2026",
+      "description": "Built a scalable OTT platform serving 50,000+ monthly active users. Achieved 99.9% uptime and reduced video load times by 30% through optimized RESTful APIs and JWT-based authentication.",
+      "url": "https://github.com/Karthickcjx/OTT",
+      "techs": [
+        "React.js",
+        "Node.js",
+        "Java",
+        "MySQL",
+        "AWS S3",
+        "JWT"
+      ],
+      "stats": [
+        "50K+ MAU",
+        "99.9% uptime"
+      ]
+    },
+    {
+      "id": "learning-management-system",
+      "title": "Learning Management System",
+      "date": "Jan 2026 - Feb 2026",
+      "description": "Full-stack LMS supporting course creation, enrollment, progress tracking, and admin dashboards with secure JWT authentication and optimized RESTful APIs.",
+      "url": "https://github.com/Karthickcjx/ELearning_management_system",
+      "techs": [
+        "Node.js",
+        "MySQL",
+        "JWT",
+        "REST API",
+        "Git"
+      ],
+      "stats": [
+        "Full-stack",
+        "Admin panel"
+      ]
+    },
+    {
+      "id": "serverless-web-application",
+      "title": "Serverless Web Application",
+      "date": "May 2025 - Jun 2025",
+      "description": "Deployed a highly scalable serverless web app using AWS S3, CloudFront, API Gateway, Lambda, and DynamoDB for persistent storage with CRUD operations.",
+      "url": "https://github.com/Karthickcjx/Serverless-web-application",
+      "techs": [
+        "AWS S3",
+        "CloudFront",
+        "Lambda",
+        "API Gateway",
+        "DynamoDB",
+        "Python"
+      ],
+      "stats": [
+        "Serverless",
+        "CRUD + HTTP"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "category": "Cloud & DevOps",
+      "items": [
+        "AWS S3",
+        "CloudFront",
+        "Lambda",
+        "API Gateway",
+        "DynamoDB",
+        "Docker",
+        "CI/CD",
+        "IaC"
+      ]
+    },
+    {
+      "category": "Languages & Frameworks",
+      "items": [
+        "JavaScript",
+        "Node.js",
+        "React.js",
+        "Express.js",
+        "Python",
+        "Java",
+        "REST APIs",
+        "JWT Auth"
+      ]
+    },
+    {
+      "category": "Databases & Tools",
+      "items": [
+        "MySQL",
+        "DynamoDB",
+        "Redis",
+        "Prisma ORM",
+        "Git / GitHub",
+        "WebSockets",
+        "CCNA"
+      ]
+    }
+  ],
+  "certifications": [
+    {
+      "id": "serverless-computing-with-aws-lambda",
+      "name": "Serverless Computing with AWS Lambda",
+      "issuer": "Internshala",
+      "year": "2025"
+    },
+    {
+      "id": "programming-in-java",
+      "name": "Programming in Java",
+      "issuer": "NPTEL",
+      "year": "2025"
+    },
+    {
+      "id": "ccna-introduction-to-networks",
+      "name": "CCNA: Introduction to Networks",
+      "issuer": "Cisco Networking Academy",
+      "year": "2025"
+    }
+  ]
+}

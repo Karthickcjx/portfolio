@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Karthick Raja G - DevOps and Full-Stack Developer portfolio.">
+    <title>Karthick Raja G - DevOps & Full-Stack Developer</title>
+    <link rel="preload" href="/assets/profile.jpg" as="image">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script defer src="/js/app.js"></script>
+  </head>
+  <body data-page="public">
+    <canvas id="signal-canvas" aria-hidden="true"></canvas>
+    <header class="site-header">
+      <a class="brand" href="#hero" aria-label="Karthick Raja G home">KR_G</a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="admin-link" href="/admin">Admin</a>
+    </header>
+
+    <main>
+      <section class="hero" id="hero">
+        <div class="hero-content">
+          <div class="identity-row">
+            <div class="avatar-shell">
+              <img id="profile-avatar" class="avatar" src="/assets/profile.jpg" alt="Karthick Raja G">
+              <span class="status-dot" aria-hidden="true"></span>
+            </div>
+            <div>
+              <p class="eyebrow">Portfolio / Cloud Systems</p>
+              <h1 id="profile-name">Karthick Raja G</h1>
+            </div>
+          </div>
+          <p class="role-line">
+            <span>&gt;</span>
+            <span id="typed-role">DevOps Engineer</span>
+            <span class="blink">_</span>
+          </p>
+          <p id="hero-summary" class="hero-summary"></p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#projects">View Projects</a>
+            <a class="button button-secondary" href="#contact">Contact Me</a>
+          </div>
+          <div id="hero-stats" class="stats-grid" aria-label="Portfolio highlights"></div>
+        </div>
+
+        <div class="system-orbit" aria-hidden="true">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="orbit orbit-three"></div>
+          <div id="cube" class="cube"></div>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="section-heading">
+          <p class="section-kicker">01 / About</p>
+          <h2>Who Am <span>I</span></h2>
+        </div>
+        <div class="about-layout">
+          <div>
+            <div id="about-copy" class="rich-copy"></div>
+            <div id="about-badges" class="badge-list"></div>
+          </div>
+          <aside class="profile-panel" aria-label="Profile details">
+            <div class="panel-corner top-left"></div>
+            <div class="panel-corner top-right"></div>
+            <div class="panel-corner bottom-left"></div>
+            <div class="panel-corner bottom-right"></div>
+            <dl class="info-list">
+              <div>
+                <dt>Email</dt>
+                <dd><a id="profile-email" href="mailto:karthick.ganesan077@gmail.com"></a></dd>
+              </div>
+              <div>
+                <dt>Phone</dt>
+                <dd id="profile-phone"></dd>
+              </div>
+              <div>
+                <dt>LinkedIn</dt>
+                <dd><a id="profile-linkedin" target="_blank" rel="noreferrer"></a></dd>
+              </div>
+              <div>
+                <dt>GitHub</dt>
+                <dd><a id="profile-github" target="_blank" rel="noreferrer"></a></dd>
+              </div>
+              <div>
+                <dt>Education</dt>
+                <dd id="profile-education"></dd>
+              </div>
+            </dl>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section alt-section" id="skills">
+        <div class="section-heading">
+          <p class="section-kicker">02 / Skills</p>
+          <h2>Tech <span>Stack</span></h2>
+        </div>
+        <div id="skills-grid" class="skills-grid"></div>
+        <div class="subsection-heading">
+          <p class="section-kicker">Certifications</p>
+        </div>
+        <div id="cert-grid" class="cert-grid"></div>
+      </section>
+
+      <section class="section" id="projects">
+        <div class="section-heading">
+          <p class="section-kicker">03 / Projects</p>
+          <h2>Featured <span>Work</span></h2>
+        </div>
+        <div id="projects-grid" class="projects-grid"></div>
+      </section>
+
+      <section class="section alt-section" id="contact">
+        <div class="section-heading">
+          <p class="section-kicker">04 / Contact</p>
+          <h2>Get In <span>Touch</span></h2>
+        </div>
+        <div class="contact-layout">
+          <div class="contact-list">
+            <a id="contact-email" class="contact-row" href="mailto:karthick.ganesan077@gmail.com">
+              <span>Email</span>
+              <strong></strong>
+            </a>
+            <div class="contact-row">
+              <span>Phone</span>
+              <strong id="contact-phone"></strong>
+            </div>
+            <a id="contact-linkedin" class="contact-row" target="_blank" rel="noreferrer">
+              <span>LinkedIn</span>
+              <strong></strong>
+            </a>
+            <a id="contact-github" class="contact-row" target="_blank" rel="noreferrer">
+              <span>GitHub</span>
+              <strong></strong>
+            </a>
+          </div>
+
+          <form id="contact-form" class="contact-form" method="post" action="/api/contact">
+            <div class="form-field">
+              <label for="contact-name">Your Name</label>
+              <input id="contact-name" name="name" autocomplete="name" required>
+            </div>
+            <div class="form-field">
+              <label for="contact-email-input">Email Address</label>
+              <input id="contact-email-input" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="form-field hidden-field" aria-hidden="true">
+              <label for="contact-website">Website</label>
+              <input id="contact-website" name="website" tabindex="-1" autocomplete="off">
+            </div>
+            <div class="form-field">
+              <label for="contact-message">Message</label>
+              <textarea id="contact-message" name="message" rows="5" required></textarea>
+            </div>
+            <button class="button button-primary full-button" type="submit">Send Message</button>
+            <p id="contact-status" class="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span id="footer-text">2026 - KARTHICK RAJA G - ALL SYSTEMS ONLINE</span>
+      <a href="#hero">Back to top</a>
+    </footer>
+  </body>
+</html>
