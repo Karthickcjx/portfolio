@@ -11,15 +11,29 @@
   </head>
   <body data-page="public">
     <canvas id="signal-canvas" aria-hidden="true"></canvas>
-    <header class="site-header">
+    <div id="cursor-core" aria-hidden="true"></div>
+    <div id="cursor-ring" aria-hidden="true"></div>
+    <header id="site-nav" class="site-header">
       <a class="brand" href="#hero" aria-label="Karthick Raja G home">KR_G</a>
-      <nav class="nav-links" aria-label="Main navigation">
+      <nav id="primary-nav" class="nav-links" aria-label="Main navigation">
+        <a href="#hero">Home</a>
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
       </nav>
-      <a class="admin-link" href="/admin">Admin</a>
+      <button
+        id="nav-toggle"
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav"
+        aria-label="Toggle navigation"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </header>
 
     <main>
