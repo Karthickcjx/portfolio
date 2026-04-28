@@ -494,9 +494,76 @@ function setupCanvas() {
   const context = canvas.getContext("2d");
   let width = 0;
   let height = 0;
+  let gridOffset = 0;
   let particles = [];
-  const colors = ["#00d5ff", "#00f59f", "#ff3d81", "#ffd166", "#8e6bff"];
-  const pointer = { x: 0, y: 0 };
+  let stars = [];
+  let nebulas = [];
+  let shooters = [];
+  let pointerThrottle = 0;
+  const rootStyles = getComputedStyle(document.documentElement);
+  const colors = ["--cyan", "--green", "--pink", "--amber", "--violet"]
+    .map((name) => rootStyles.getPropertyValue(name).trim())
+    .filter(Boolean);
+  const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+
+  function randomColor() {
+    return colors[Math.floor(Math.random() * colors.length)] || "#00d5ff";
+  }
+
+  function hexToRgba(hex, alpha) {
+    const clean = hex.replace("#", "").trim();
+    if (clean.length !== 6) {
+      return `rgba(0, 213, 255, ${alpha})`;
+    }
+    const value = Number.parseInt(clean, 16);
+    const red = (value >> 16) & 255;
+    const green = (value >> 8) & 255;
+    const blue = value & 255;
+    return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+  }
+
+  function createParticle(x = Math.random() * width, y = Math.random() * height, fromPointer = false) {
+    const speed = fromPointer ? 4 : 1.2;
+    return {
+      x,
+      y,
+      vx: (Math.random() - 0.5) * speed,
+      vy: (Math.random() - 0.5) * speed - (fromPointer ? 1.2 : 0),
+      radius: fromPointer ? 2 + Math.random() * 3.5 : 0.8 + Math.random() * 2.2,
+      life: 1,
+      decay: fromPointer ? 0.016 + Math.random() * 0.018 : 0.0012 + Math.random() * 0.002,
+      color: randomColor(),
+      fromPointer,
+      angle: Math.random() * Math.PI * 2,
+      spin: (Math.random() - 0.5) * 0.08,
+      shape: fromPointer ? Math.floor(Math.random() * 3) : 0
+    };
+  }
+
+  function resetStars() {
+    const count = Math.min(280, Math.max(120, Math.floor((width * height) / 7500)));
+    stars = Array.from({ length: count }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      radius: Math.random() * 1.35 + 0.2,
+      phase: Math.random() * Math.PI * 2,
+      speed: 0.012 + Math.random() * 0.018,
+      color: randomColor()
+    }));
+  }
+
+  function resetNebulas() {
+    nebulas = Array.from({ length: 5 }, (_, index) => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      radius: 150 + Math.random() * 220,
+      color: colors[index % colors.length] || randomColor(),
+      phase: Math.random() * Math.PI * 2,
+      speed: 0.4 + Math.random() * 0.5,
+      vx: (Math.random() - 0.5) * 0.14,
+      vy: (Math.random() - 0.5) * 0.14
+    }));
+  }
 
   function resize() {
     const scale = Math.min(window.devicePixelRatio || 1, 2);
@@ -507,62 +574,265 @@ function setupCanvas() {
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
     context.setTransform(scale, 0, 0, scale, 0, 0);
-    const count = Math.max(60, Math.floor((width * height) / 17000));
-    particles = Array.from({ length: count }, () => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.45,
-      vy: (Math.random() - 0.5) * 0.45,
-      radius: Math.random() * 1.8 + 0.4,
-      color: colors[Math.floor(Math.random() * colors.length)]
-    }));
+    const count = Math.min(120, Math.max(70, Math.floor((width * height) / 18000)));
+    particles = Array.from({ length: count }, () => createParticle());
+    resetStars();
+    resetNebulas();
   }
 
-  function draw() {
-    context.clearRect(0, 0, width, height);
-    context.globalAlpha = 0.9;
-    particles.forEach((particle) => {
-      const dx = pointer.x - particle.x;
-      const dy = pointer.y - particle.y;
-      const distance = Math.hypot(dx, dy);
-      if (distance < 150 && distance > 1) {
-        const force = (150 - distance) / 1500;
-        particle.vx -= dx * force * 0.012;
-        particle.vy -= dy * force * 0.012;
+  function updateParticle(particle) {
+    const dx = pointer.x - particle.x;
+    const dy = pointer.y - particle.y;
+    const distance = Math.hypot(dx, dy);
+    if (!particle.fromPointer && distance < 190 && distance > 1) {
+      const force = ((190 - distance) / 190) * 0.34;
+      particle.vx -= (dx / distance) * force;
+      particle.vy -= (dy / distance) * force;
+    }
+
+    particle.vx *= 0.97;
+    particle.vy *= 0.97;
+    particle.x += particle.vx;
+    particle.y += particle.vy;
+    particle.angle += particle.spin;
+    particle.life -= particle.decay;
+
+    if (!particle.fromPointer) {
+      if (particle.x < -12) particle.x = width + 12;
+      if (particle.x > width + 12) particle.x = -12;
+      if (particle.y < -12) particle.y = height + 12;
+      if (particle.y > height + 12) particle.y = -12;
+    }
+  }
+
+  function drawParticle(particle) {
+    context.save();
+    context.globalAlpha = Math.max(0, particle.life) * 0.88;
+    context.shadowBlur = particle.radius * 6;
+    context.shadowColor = particle.color;
+    context.fillStyle = particle.color;
+    context.translate(particle.x, particle.y);
+    context.rotate(particle.angle);
+
+    if (particle.shape === 1) {
+      context.beginPath();
+      context.moveTo(0, -particle.radius * 1.5);
+      context.lineTo(particle.radius, 0);
+      context.lineTo(0, particle.radius * 1.5);
+      context.lineTo(-particle.radius, 0);
+      context.closePath();
+      context.fill();
+    } else if (particle.shape === 2) {
+      context.beginPath();
+      for (let i = 0; i < 10; i += 1) {
+        const angle = (i * Math.PI) / 5 - Math.PI / 2;
+        const radius = i % 2 === 0 ? particle.radius * 1.55 : particle.radius * 0.58;
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius;
+        if (i === 0) {
+          context.moveTo(x, y);
+        } else {
+          context.lineTo(x, y);
+        }
       }
-      particle.x += particle.vx;
-      particle.y += particle.vy;
-      particle.vx *= 0.995;
-      particle.vy *= 0.995;
-      if (particle.x < 0) particle.x = width;
-      if (particle.x > width) particle.x = 0;
-      if (particle.y < 0) particle.y = height;
-      if (particle.y > height) particle.y = 0;
+      context.closePath();
+      context.fill();
+    } else {
+      context.beginPath();
+      context.arc(0, 0, particle.radius, 0, Math.PI * 2);
+      context.fill();
+    }
+
+    context.restore();
+  }
+
+  function drawNebulas(time) {
+    nebulas.forEach((nebula) => {
+      nebula.x += nebula.vx;
+      nebula.y += nebula.vy;
+      if (nebula.x < -nebula.radius) nebula.x = width + nebula.radius;
+      if (nebula.x > width + nebula.radius) nebula.x = -nebula.radius;
+      if (nebula.y < -nebula.radius) nebula.y = height + nebula.radius;
+      if (nebula.y > height + nebula.radius) nebula.y = -nebula.radius;
+
+      const pulse = 1 + Math.sin(time * nebula.speed + nebula.phase) * 0.14;
+      const radius = nebula.radius * pulse;
+      const gradient = context.createRadialGradient(nebula.x, nebula.y, 0, nebula.x, nebula.y, radius);
+      gradient.addColorStop(0, hexToRgba(nebula.color, 0.055));
+      gradient.addColorStop(0.45, hexToRgba(nebula.color, 0.018));
+      gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
 
       context.beginPath();
-      context.fillStyle = particle.color;
-      context.shadowBlur = 8;
-      context.shadowColor = particle.color;
-      context.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+      context.fillStyle = gradient;
+      context.arc(nebula.x, nebula.y, radius, 0, Math.PI * 2);
       context.fill();
     });
+  }
 
-    for (let i = 0; i < particles.length; i += 1) {
-      for (let j = i + 1; j < particles.length; j += 1) {
-        const a = particles[i];
-        const b = particles[j];
-        const distance = Math.hypot(a.x - b.x, a.y - b.y);
-        if (distance < 110) {
+  function drawGrid() {
+    gridOffset = (gridOffset + 0.28) % 64;
+    context.save();
+    context.globalAlpha = 0.026;
+    context.strokeStyle = colors[0] || "#00d5ff";
+    context.lineWidth = 0.5;
+    for (let x = gridOffset; x < width; x += 64) {
+      context.beginPath();
+      context.moveTo(x, 0);
+      context.lineTo(x, height);
+      context.stroke();
+    }
+    for (let y = gridOffset; y < height; y += 64) {
+      context.beginPath();
+      context.moveTo(0, y);
+      context.lineTo(width, y);
+      context.stroke();
+    }
+
+    context.globalAlpha = 1;
+    const startX = Math.floor((pointer.x - 220 - gridOffset) / 64) * 64 + gridOffset;
+    const startY = Math.floor((pointer.y - 220 - gridOffset) / 64) * 64 + gridOffset;
+    for (let x = startX; x < pointer.x + 220; x += 64) {
+      for (let y = startY; y < pointer.y + 220; y += 64) {
+        const distance = Math.hypot(x - pointer.x, y - pointer.y);
+        if (distance < 220) {
+          const alpha = (1 - distance / 220) * 0.55;
           context.beginPath();
-          context.globalAlpha = (1 - distance / 110) * 0.16;
+          context.arc(x, y, 2, 0, Math.PI * 2);
+          context.fillStyle = `rgba(0, 213, 255, ${alpha})`;
+          context.shadowBlur = 9;
+          context.shadowColor = "#00d5ff";
+          context.fill();
+          context.shadowBlur = 0;
+        }
+      }
+    }
+    context.restore();
+  }
+
+  function drawStars() {
+    stars.forEach((star) => {
+      star.phase += star.speed;
+      const alpha = Math.max(0.08, 0.34 + Math.sin(star.phase) * 0.42);
+      context.beginPath();
+      context.globalAlpha = alpha;
+      context.fillStyle = star.color;
+      context.shadowBlur = star.radius * 5;
+      context.shadowColor = star.color;
+      context.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+      context.fill();
+      context.shadowBlur = 0;
+    });
+    context.globalAlpha = 1;
+  }
+
+  function drawConnections() {
+    const ambient = particles.filter((particle) => !particle.fromPointer && particle.life > 0.25).slice(0, 80);
+    for (let i = 0; i < ambient.length; i += 1) {
+      for (let j = i + 1; j < ambient.length; j += 1) {
+        const a = ambient[i];
+        const b = ambient[j];
+        const distance = Math.hypot(a.x - b.x, a.y - b.y);
+        if (distance < 124) {
+          context.beginPath();
+          context.globalAlpha = (1 - distance / 124) * 0.16 * Math.min(a.life, b.life);
           context.strokeStyle = a.color;
-          context.lineWidth = 0.7;
+          context.lineWidth = 0.55;
           context.moveTo(a.x, a.y);
           context.lineTo(b.x, b.y);
           context.stroke();
         }
       }
     }
+    context.globalAlpha = 1;
+  }
+
+  function drawPointerAura(time) {
+    if (!hasFinePointer) {
+      return;
+    }
+
+    for (let ring = 0; ring < 3; ring += 1) {
+      const radius = 42 + ring * 30 + Math.sin(time * 2 + ring) * 8;
+      const alpha = 0.09 - ring * 0.022;
+      const gradient = context.createRadialGradient(pointer.x, pointer.y, radius * 0.28, pointer.x, pointer.y, radius);
+      gradient.addColorStop(0, `rgba(0, 213, 255, ${alpha * 2})`);
+      gradient.addColorStop(1, "rgba(0, 213, 255, 0)");
+      context.beginPath();
+      context.fillStyle = gradient;
+      context.arc(pointer.x, pointer.y, radius, 0, Math.PI * 2);
+      context.fill();
+    }
+
+    for (let arc = 0; arc < 4; arc += 1) {
+      const angle = time * (arc % 2 === 0 ? 1 : -1.25) + arc * (Math.PI / 2);
+      const radius = 56 + arc * 18;
+      context.beginPath();
+      context.arc(pointer.x, pointer.y, radius, angle, angle + Math.PI * 0.42);
+      context.strokeStyle = arc % 2 === 0 ? "rgba(0, 213, 255, 0.34)" : "rgba(255, 61, 129, 0.25)";
+      context.lineWidth = 1;
+      context.stroke();
+    }
+  }
+
+  function spawnShooter() {
+    if (Math.random() < 0.012 && shooters.length < 4) {
+      shooters.push({
+        x: Math.random() * width,
+        y: -20,
+        vx: (Math.random() - 0.5) * 5,
+        vy: 3.5 + Math.random() * 4.5,
+        life: 1,
+        length: 80 + Math.random() * 70,
+        color: randomColor()
+      });
+    }
+  }
+
+  function drawShooters() {
+    shooters = shooters.filter((shooter) => shooter.life > 0 && shooter.y < height + shooter.length);
+    shooters.forEach((shooter) => {
+      context.save();
+      context.globalAlpha = shooter.life * 0.88;
+      context.strokeStyle = shooter.color;
+      context.shadowBlur = 12;
+      context.shadowColor = shooter.color;
+      context.lineWidth = 1.4;
+      context.beginPath();
+      context.moveTo(shooter.x, shooter.y);
+      context.lineTo(shooter.x - shooter.vx * (shooter.length / 6), shooter.y - shooter.vy * (shooter.length / 6));
+      context.stroke();
+      context.restore();
+      shooter.x += shooter.vx;
+      shooter.y += shooter.vy;
+      shooter.life -= 0.014;
+    });
+  }
+
+  function draw() {
+    const time = performance.now() * 0.001;
+    context.clearRect(0, 0, width, height);
+
+    drawNebulas(time);
+    drawGrid();
+    drawStars();
+    drawConnections();
+
+    particles = particles.filter((particle) => particle.life > 0);
+    const ambientTarget = Math.min(120, Math.max(70, Math.floor((width * height) / 18000)));
+    let ambientCount = particles.filter((particle) => !particle.fromPointer).length;
+    while (ambientCount < ambientTarget) {
+      particles.push(createParticle());
+      ambientCount += 1;
+    }
+    particles.forEach((particle) => {
+      updateParticle(particle);
+      drawParticle(particle);
+    });
+
+    drawPointerAura(time);
+    spawnShooter();
+    drawShooters();
+
     context.globalAlpha = 1;
     requestAnimationFrame(draw);
   }
@@ -571,6 +841,17 @@ function setupCanvas() {
   window.addEventListener("pointermove", (event) => {
     pointer.x = event.clientX;
     pointer.y = event.clientY;
+    if (!hasFinePointer || pointerThrottle++ % 3 !== 0) {
+      return;
+    }
+    for (let i = 0; i < 2; i += 1) {
+      particles.push(createParticle(pointer.x + (Math.random() - 0.5) * 22, pointer.y + (Math.random() - 0.5) * 22, true));
+    }
+  });
+  window.addEventListener("pointerdown", (event) => {
+    for (let i = 0; i < 10; i += 1) {
+      particles.push(createParticle(event.clientX, event.clientY, true));
+    }
   });
   resize();
   draw();
