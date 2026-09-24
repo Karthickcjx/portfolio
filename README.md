@@ -21,6 +21,7 @@ npm run hash-password -- "Your-Strong-Password-Here"
 
 Copy `.env.example` to `.env`, then set:
 
+
 ```bash
 ADMIN_USERNAME=karthick
 ADMIN_PASSWORD_HASH=paste_generated_hash_here

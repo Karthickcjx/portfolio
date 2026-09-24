@@ -65,6 +65,21 @@
   },
   "projects": [
     {
+      "id": "vprofile-project-aws-microservices-deployment",
+      "title": "vprofile-project — AWS Microservices Deployment",
+      "date": "Jun 2026 – Jul 2026",
+      "description": "Set up a multi-tier architecture on AWS: EC2 instances behind an Elastic Load Balancer with Auto Scaling, so the app \nkeeps running if a node drops. \nRan Tomcat, RabbitMQ, Memcache, and MySQL in separate Security Groups and pointed DNS through Route 53 after \ntransferring the domain from GoDaddy. Most of the time went into tracking down why the pieces weren't talking to each \nother.",
+      "url": "https://github.com/Karthickcjx/vprofile-project.git",
+      "techs": [
+        "AWS(EC2",
+        "ELB",
+        "Auto Scaling)"
+      ],
+      "stats": [
+        "Devops"
+      ]
+    },
+    {
       "id": "productivity-monitoring-system",
       "title": "Productivity Monitoring System",
       "date": "Mar 2026 - Apr 2026",
