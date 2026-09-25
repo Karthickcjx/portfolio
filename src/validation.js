@@ -101,6 +101,7 @@ function normalizePortfolio(input) {
       phone: asString(profile.phone, 40),
       linkedin: cleanUrl(profile.linkedin),
       github: cleanUrl(profile.github),
+      website: cleanUrl(profile.website),
       education: asString(profile.education, 120),
       avatar: asString(profile.avatar, 120, "/assets/profile.jpg").startsWith("/")
         ? asString(profile.avatar, 120, "/assets/profile.jpg")

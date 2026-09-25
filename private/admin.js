@@ -123,6 +123,7 @@ function fillProfileForm() {
   $("#admin-phone").value = profile.phone || "";
   $("#admin-linkedin").value = profile.linkedin || "";
   $("#admin-github").value = profile.github || "";
+  $("#admin-website").value = profile.website || "";
   $("#admin-education").value = profile.education || "";
   $("#admin-footer").value = profile.footer || "";
   $("#admin-summary").value = profile.heroSummary || "";
@@ -142,6 +143,7 @@ function collectProfileForm() {
     phone: $("#admin-phone").value,
     linkedin: $("#admin-linkedin").value,
     github: $("#admin-github").value,
+    website: $("#admin-website").value,
     education: $("#admin-education").value,
     footer: $("#admin-footer").value,
     heroSummary: $("#admin-summary").value,

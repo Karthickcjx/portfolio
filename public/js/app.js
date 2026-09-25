@@ -81,10 +81,13 @@ function renderProfile(profile) {
 
   setLink($("#profile-linkedin"), profile.linkedin, safeHost(profile.linkedin));
   setLink($("#profile-github"), profile.github, safeHost(profile.github));
+  setLink($("#profile-website"), profile.website, safeHost(profile.website));
   $("#contact-linkedin").href = profile.linkedin || "#";
   $("#contact-linkedin strong").textContent = safeHost(profile.linkedin);
   $("#contact-github").href = profile.github || "#";
   $("#contact-github strong").textContent = safeHost(profile.github);
+  $("#contact-website").href = profile.website || "#";
+  $("#contact-website strong").textContent = safeHost(profile.website);
 
   const aboutCopy = $("#about-copy");
   aboutCopy.replaceChildren();

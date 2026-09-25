@@ -2,19 +2,23 @@
   "profile": {
     "name": "Karthick Raja G",
     "role": "DevOps & Full-Stack Developer",
-    "heroSummary": "Results-driven DevOps and Full-Stack Developer building scalable serverless applications on AWS, designing RESTful APIs, and deploying containerized systems with precision.",
+    "heroSummary": "Built six projects independently this past year, spanning React and Node full-stack apps plus AWS and Docker systems designed to hold up under real users and real failures.",
     "bio": [
       "I'm a DevOps and Full-Stack Developer pursuing B.Tech in Information Technology at Adhiparasakthi College of Engineering, Ranipet (2022-2026), with a CGPA of 7.8.",
-      "Passionate about CI/CD pipelines, Infrastructure as Code, and serverless architectures. I use AI-assisted tools like GitHub Copilot and Claude to ship faster and smarter.",
-      "I architect scalable solutions on AWS and build full-stack systems, from real-time employee monitoring to OTT streaming platforms with 50K+ monthly users."
+      "I split my time between writing application code and figuring out why something broke, with hands-on work across AWS, Docker, CI/CD, Infrastructure as Code, and serverless systems.",
+      "I build full-stack systems with React and Node, automate infrastructure with Python, Bash, Terraform, boto3, and Fabric, and use AI-assisted tools to ship with more focus."
     ],
     "badges": [
-      "AWS Serverless",
+      "AWS",
       "Docker",
-      "CI/CD",
+      "Jenkins",
+      "GitHub Actions",
+      "Terraform",
       "React.js",
       "Node.js",
-      "IaC",
+      "Python",
+      "Prometheus",
+      "Grafana",
       "WebSockets",
       "JWT Auth"
     ],
@@ -22,6 +26,7 @@
     "phone": "+91 8610240879",
     "linkedin": "https://linkedin.com/in/karthick-raja-520421263",
     "github": "https://github.com/Karthickcjx",
+    "website": "https://g.kcthdevops.site/",
     "education": "B.Tech IT - CGPA 7.8",
     "avatar": "/assets/profile-upload-ce3270cf-0163-4b0d-99d2-0dbc42870103.jpg",
     "footer": "2026 - KARTHICK RAJA G - ALL SYSTEMS ONLINE",
@@ -43,23 +48,13 @@
     "stats": [
       {
         "label": "Projects",
-        "value": 4,
+        "value": 7,
         "suffix": ""
       },
       {
         "label": "Certs",
-        "value": 3,
+        "value": 5,
         "suffix": ""
-      },
-      {
-        "label": "OTT uptime",
-        "value": 99.9,
-        "suffix": "%"
-      },
-      {
-        "label": "OTT MAU",
-        "value": 50,
-        "suffix": "K+"
       }
     ]
   },
@@ -70,18 +65,91 @@
       "organization": "JSpiders",
       "type": "Internship",
       "date": "Jan 2026 - Present",
-      "summary": "Hands-on DevOps internship focused on cloud deployment, containerized workflows, and reliable delivery practices.",
+      "summary": "Administer Linux systems, automate repetitive work with Bash and Python, and provision AWS infrastructure with Terraform, boto3, and Fabric.",
       "highlights": [
-        "Supported cloud infrastructure and deployment workflows",
-        "Applied Docker, CI/CD, and AWS practices in a team environment"
+        "Built a Jenkins pipeline with SonarQube quality gates and Nexus artifact management",
+        "Set up Jenkins on Ubuntu 22.04 through Vagrant and wired GitHub Actions builds with Telegram notifications"
       ],
       "techs": [
         "AWS",
-        "Docker",
-        "CI/CD",
-        "Linux"
+        "Terraform",
+        "boto3",
+        "Fabric",
+        "Jenkins",
+        "SonarQube",
+        "Nexus",
+        "Vagrant",
+        "Bash",
+        "Python"
       ],
       "url": "#"
+    },
+    {
+      "id": "monitoring-logging-stack-role",
+      "role": "Cloud Monitoring Engineer",
+      "organization": "Monitoring & Logging Stack",
+      "type": "Project Role",
+      "date": "Sep 2026",
+      "summary": "Built a monitoring and logging stack across four EC2 instances with Prometheus, Grafana, Loki, and Promtail.",
+      "highlights": [
+        "Connected host metrics from a Python Flask app server to Prometheus and centralized logs in Loki",
+        "Restricted Grafana, Prometheus, and Loki access with Security Groups and admin or service-only network rules"
+      ],
+      "techs": [
+        "AWS EC2",
+        "Prometheus",
+        "Grafana",
+        "Loki",
+        "Promtail",
+        "Python",
+        "Security Groups"
+      ],
+      "url": "#"
+    },
+    {
+      "id": "vprofile-dual-cicd-role",
+      "role": "DevOps Engineer",
+      "organization": "VProfile - Dual CI/CD Pipeline",
+      "type": "Project Role",
+      "date": "Aug 2026",
+      "summary": "Built parallel Jenkins and GitHub Actions pipelines to compare build, quality, security, container, and deployment workflows for the same application.",
+      "highlights": [
+        "Added Maven build and test, SonarQube analysis, Trivy scanning, and Docker image builds",
+        "Pushed images to ECR, deployed to ECS, loaded secrets securely, and sent Telegram build notifications"
+      ],
+      "techs": [
+        "Jenkins",
+        "GitHub Actions",
+        "Maven",
+        "SonarQube",
+        "Trivy",
+        "Docker",
+        "ECR",
+        "ECS"
+      ],
+      "url": "https://github.com/Karthickcjx/CI-CD"
+    },
+    {
+      "id": "vprofile-project-role",
+      "role": "AWS DevOps Engineer",
+      "organization": "vprofile-project - AWS Microservices Deployment",
+      "type": "Project Role",
+      "date": "Jun 2026 - Jul 2026",
+      "summary": "Configured a multi-tier AWS architecture with EC2, Elastic Load Balancing, Auto Scaling, service-specific Security Groups, and Route 53.",
+      "highlights": [
+        "Ran Tomcat, RabbitMQ, Memcache, and MySQL as isolated service tiers",
+        "Transferred the domain from GoDaddy and traced cross-service connectivity issues through the AWS network"
+      ],
+      "techs": [
+        "AWS EC2",
+        "ELB",
+        "Auto Scaling",
+        "Route 53",
+        "Tomcat",
+        "RabbitMQ",
+        "MySQL"
+      ],
+      "url": "https://github.com/Karthickcjx/vprofile-project"
     },
     {
       "id": "productivity-monitoring-system-role",
@@ -170,25 +238,71 @@
   ],
   "projects": [
     {
-      "id": "vprofile-project-aws-microservices-deployment",
-      "title": "vprofile-project — AWS Microservices Deployment",
-      "date": "Jun 2026 – Jul 2026",
-      "description": "Set up a multi-tier architecture on AWS: EC2 instances behind an Elastic Load Balancer with Auto Scaling, so the app \nkeeps running if a node drops. \nRan Tomcat, RabbitMQ, Memcache, and MySQL in separate Security Groups and pointed DNS through Route 53 after \ntransferring the domain from GoDaddy. Most of the time went into tracking down why the pieces weren't talking to each \nother.",
-      "url": "https://github.com/Karthickcjx/vprofile-project.git",
+      "id": "monitoring-logging-stack",
+      "title": "Monitoring & Logging Stack - Prometheus, Grafana, Loki on AWS",
+      "date": "Sep 2026",
+      "description": "Set up a monitoring stack across four EC2 instances: Prometheus scrapes host metrics from a Python Flask app server, Promtail pushes app logs to Loki, and Grafana reads from both to build dashboards. Locked each tier down with Security Groups and admin or service-only access rules.",
+      "url": "#",
       "techs": [
-        "AWS(EC2",
-        "ELB",
-        "Auto Scaling)"
+        "AWS EC2",
+        "Prometheus",
+        "Grafana",
+        "Loki",
+        "Promtail",
+        "Python",
+        "Security Groups"
       ],
       "stats": [
-        "Devops"
+        "4 EC2 instances",
+        "Private monitoring"
+      ]
+    },
+    {
+      "id": "vprofile-dual-cicd",
+      "title": "VProfile - Dual CI/CD Pipeline",
+      "date": "Aug 2026",
+      "description": "Built Jenkins and GitHub Actions pipelines for the same application to compare the workflows side by side. Both pipelines run Maven build and test, SonarQube quality analysis, Trivy vulnerability scanning, Docker image builds, ECR publishing, and ECS deployment with secure secret retrieval.",
+      "url": "https://github.com/Karthickcjx/CI-CD",
+      "techs": [
+        "Jenkins",
+        "GitHub Actions",
+        "Maven",
+        "SonarQube",
+        "Trivy",
+        "Docker",
+        "ECR",
+        "ECS"
+      ],
+      "stats": [
+        "Jenkins + Actions",
+        "ECS deploy"
+      ]
+    },
+    {
+      "id": "vprofile-project-aws-microservices-deployment",
+      "title": "vprofile-project - AWS Microservices Deployment",
+      "date": "Jun 2026 - Jul 2026",
+      "description": "Set up a multi-tier architecture on AWS with EC2 instances behind an Elastic Load Balancer and Auto Scaling. Ran Tomcat, RabbitMQ, Memcache, and MySQL in separate Security Groups and pointed DNS through Route 53.",
+      "url": "https://github.com/Karthickcjx/vprofile-project",
+      "techs": [
+        "AWS EC2",
+        "ELB",
+        "Auto Scaling",
+        "Route 53",
+        "Tomcat",
+        "RabbitMQ",
+        "MySQL"
+      ],
+      "stats": [
+        "AWS DevOps",
+        "Auto Scaling"
       ]
     },
     {
       "id": "productivity-monitoring-system",
       "title": "Productivity Monitoring System",
       "date": "Mar 2026 - Apr 2026",
-      "description": "Engineered a real-time employee productivity monitoring system achieving 95% accuracy using webcam-based face detection, emotion recognition, and behavior analytics. Built with React, Node.js, MySQL, Redis, Prisma, and Docker.",
+      "description": "Built a webcam-based system that tracks employee productivity in real time through face detection, emotion recognition, and behavior analytics, reaching around 95% accuracy. Dashboard updates stream live over WebSockets.",
       "url": "https://github.com/premkumar002277/productivity_monitor",
       "techs": [
         "React",
@@ -208,7 +322,7 @@
       "id": "ott-video-streaming-platform",
       "title": "OTT Video Streaming Platform",
       "date": "Feb 2026 - Mar 2026",
-      "description": "Built a scalable OTT platform serving 50,000+ monthly active users. Achieved 99.9% uptime and reduced video load times by 30% through optimized RESTful APIs and JWT-based authentication.",
+      "description": "Built an OTT platform on React.js, Node.js, Java, MySQL, and AWS S3 that scaled to 50,000+ monthly active users. Held 99.9% uptime and cut video load times by 30% by reworking the RESTful APIs and JWT auth flow.",
       "url": "https://github.com/Karthickcjx/OTT",
       "techs": [
         "React.js",
@@ -225,9 +339,9 @@
     },
     {
       "id": "learning-management-system",
-      "title": "Learning Management System",
+      "title": "Learning Management System (LMS)",
       "date": "Jan 2026 - Feb 2026",
-      "description": "Full-stack LMS supporting course creation, enrollment, progress tracking, and admin dashboards with secure JWT authentication and optimized RESTful APIs.",
+      "description": "Built a full-stack LMS covering course creation, enrollment, progress tracking, and an admin dashboard behind JWT authentication. Designed the RESTful APIs and MySQL schema from scratch.",
       "url": "https://github.com/Karthickcjx/ELearning_management_system",
       "techs": [
         "Node.js",
@@ -243,17 +357,18 @@
     },
     {
       "id": "serverless-web-application",
-      "title": "Serverless Web Application",
+      "title": "Serverless Web Application - Internshala",
       "date": "May 2025 - Jun 2025",
-      "description": "Deployed a highly scalable serverless web app using AWS S3, CloudFront, API Gateway, Lambda, and DynamoDB for persistent storage with CRUD operations.",
+      "description": "Built a serverless app on AWS using S3, CloudFront, API Gateway, and Lambda with Python and Node.js, using DynamoDB for storage and secure CRUD operations through API Gateway.",
       "url": "https://github.com/Karthickcjx/Serverless-web-application",
       "techs": [
         "AWS S3",
         "CloudFront",
-        "Lambda",
         "API Gateway",
+        "Lambda",
         "DynamoDB",
-        "Python"
+        "Python",
+        "Node.js"
       ],
       "stats": [
         "Serverless",
@@ -265,14 +380,28 @@
     {
       "category": "Cloud & DevOps",
       "items": [
+        "AWS EC2",
         "AWS S3",
         "CloudFront",
         "Lambda",
         "API Gateway",
         "DynamoDB",
+        "ELB",
+        "Auto Scaling",
+        "Route 53",
+        "ECR/ECS",
+        "VPC",
         "Docker",
-        "CI/CD",
-        "IaC"
+        "Terraform",
+        "Ansible",
+        "Vagrant",
+        "Jenkins",
+        "GitHub Actions",
+        "SonarQube",
+        "Nexus",
+        "Trivy",
+        "boto3",
+        "Fabric"
       ]
     },
     {
@@ -281,11 +410,15 @@
         "JavaScript",
         "Node.js",
         "React.js",
-        "Express.js",
         "Python",
         "Java",
-        "REST APIs",
-        "JWT Auth"
+        "Shell/Bash",
+        "RESTful APIs",
+        "JWT Auth",
+        "Agile",
+        "LLM",
+        "Gen AI",
+        "Agentic AI"
       ]
     },
     {
@@ -294,10 +427,14 @@
         "MySQL",
         "DynamoDB",
         "Redis",
-        "Prisma ORM",
-        "Git / GitHub",
+        "Prisma",
+        "Git/GitHub",
         "WebSockets",
-        "CCNA"
+        "CCNA Networking",
+        "Prometheus",
+        "Grafana",
+        "Loki",
+        "Promtail"
       ]
     }
   ],
@@ -317,6 +454,18 @@
     {
       "id": "ccna-introduction-to-networks",
       "name": "CCNA: Introduction to Networks",
+      "issuer": "Cisco Networking Academy",
+      "year": "2025"
+    },
+    {
+      "id": "ccna-switching-routing-wireless-essentials",
+      "name": "CCNA: Switching, Routing, and Wireless Essentials",
+      "issuer": "Cisco Networking Academy",
+      "year": "2025"
+    },
+    {
+      "id": "ccna-enterprise-networking-security-automation",
+      "name": "CCNA: Enterprise Networking, Security, and Automation",
       "issuer": "Cisco Networking Academy",
       "year": "2025"
     }
