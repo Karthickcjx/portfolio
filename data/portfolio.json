@@ -23,7 +23,7 @@
     "linkedin": "https://linkedin.com/in/karthick-raja-520421263",
     "github": "https://github.com/Karthickcjx",
     "education": "B.Tech IT - CGPA 7.8",
-    "avatar": "/assets/profile.jpg",
+    "avatar": "/assets/profile-upload-ce3270cf-0163-4b0d-99d2-0dbc42870103.jpg",
     "footer": "2026 - KARTHICK RAJA G - ALL SYSTEMS ONLINE",
     "roles": [
       "DevOps Engineer",
@@ -63,6 +63,111 @@
       }
     ]
   },
+  "experience": [
+    {
+      "id": "devops-intern-jspiders",
+      "role": "DevOps Intern",
+      "organization": "JSpiders",
+      "type": "Internship",
+      "date": "Jan 2026 - Present",
+      "summary": "Hands-on DevOps internship focused on cloud deployment, containerized workflows, and reliable delivery practices.",
+      "highlights": [
+        "Supported cloud infrastructure and deployment workflows",
+        "Applied Docker, CI/CD, and AWS practices in a team environment"
+      ],
+      "techs": [
+        "AWS",
+        "Docker",
+        "CI/CD",
+        "Linux"
+      ],
+      "url": "#"
+    },
+    {
+      "id": "productivity-monitoring-system-role",
+      "role": "Full-Stack Developer",
+      "organization": "Productivity Monitoring System",
+      "type": "Project Role",
+      "date": "Mar 2026 - Apr 2026",
+      "summary": "Engineered a real-time employee productivity monitoring system with webcam-based face detection, emotion recognition, and behavior analytics.",
+      "highlights": [
+        "Reached 95% accuracy across monitoring and analytics workflows",
+        "Built real-time features with WebSockets and a Dockerized backend"
+      ],
+      "techs": [
+        "React",
+        "Node.js",
+        "MySQL",
+        "Redis",
+        "Prisma",
+        "Docker",
+        "WebSockets"
+      ],
+      "url": "https://github.com/premkumar002277/productivity_monitor"
+    },
+    {
+      "id": "ott-video-streaming-platform-role",
+      "role": "Cloud Full-Stack Developer",
+      "organization": "OTT Video Streaming Platform",
+      "type": "Project Role",
+      "date": "Feb 2026 - Mar 2026",
+      "summary": "Built a scalable OTT platform serving 50,000+ monthly active users with optimized APIs, secure authentication, and cloud media storage.",
+      "highlights": [
+        "Achieved 99.9% uptime for the streaming platform",
+        "Reduced video load times by 30% through API and delivery optimization"
+      ],
+      "techs": [
+        "React.js",
+        "Node.js",
+        "Java",
+        "MySQL",
+        "AWS S3",
+        "JWT"
+      ],
+      "url": "https://github.com/Karthickcjx/OTT"
+    },
+    {
+      "id": "learning-management-system-role",
+      "role": "Full-Stack Developer",
+      "organization": "Learning Management System",
+      "type": "Project Role",
+      "date": "Jan 2026 - Feb 2026",
+      "summary": "Developed a full-stack learning platform supporting course creation, enrollment, progress tracking, and secure administration.",
+      "highlights": [
+        "Implemented JWT authentication and role-aware admin workflows",
+        "Designed RESTful APIs backed by MySQL for course and enrollment data"
+      ],
+      "techs": [
+        "Node.js",
+        "MySQL",
+        "JWT",
+        "REST API",
+        "Git"
+      ],
+      "url": "https://github.com/Karthickcjx/ELearning_management_system"
+    },
+    {
+      "id": "serverless-web-application-role",
+      "role": "Serverless Developer",
+      "organization": "Serverless Web Application",
+      "type": "Training Project",
+      "date": "May 2025 - Jun 2025",
+      "summary": "Deployed a scalable serverless web application with CRUD operations, managed APIs, and persistent NoSQL storage.",
+      "highlights": [
+        "Connected S3 and CloudFront delivery with API Gateway and Lambda",
+        "Implemented persistent CRUD workflows with DynamoDB"
+      ],
+      "techs": [
+        "AWS S3",
+        "CloudFront",
+        "Lambda",
+        "API Gateway",
+        "DynamoDB",
+        "Python"
+      ],
+      "url": "https://github.com/Karthickcjx/Serverless-web-application"
+    }
+  ],
   "projects": [
     {
       "id": "vprofile-project-aws-microservices-deployment",

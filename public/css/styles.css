@@ -759,6 +759,111 @@ h2 span,
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.experience-timeline {
+  position: relative;
+  display: grid;
+  gap: 22px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 6px 0 6px 36px;
+}
+
+.experience-timeline::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 10px;
+  width: 1px;
+  background: linear-gradient(180deg, var(--cyan), rgba(0, 213, 255, 0.12) 86%, transparent);
+  box-shadow: 0 0 14px rgba(0, 213, 255, 0.34);
+  content: "";
+}
+
+.experience-item {
+  position: relative;
+  padding: 26px 30px;
+  border: 1px solid rgba(0, 213, 255, 0.14);
+  border-radius: var(--radius);
+  background: rgba(13, 16, 16, 0.84);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.experience-item:hover,
+.experience-item.reveal.is-visible:hover {
+  transform: translateX(4px);
+  border-color: rgba(0, 245, 159, 0.4);
+  box-shadow: var(--shadow-green);
+}
+
+.experience-marker {
+  position: absolute;
+  top: 30px;
+  left: -32px;
+  width: 13px;
+  height: 13px;
+  border: 2px solid var(--cyan);
+  border-radius: 50%;
+  background: var(--bg);
+  box-shadow: 0 0 0 5px rgba(0, 213, 255, 0.08), 0 0 16px rgba(0, 213, 255, 0.72);
+}
+
+.experience-item:nth-child(3n + 2) .experience-marker {
+  border-color: var(--green);
+  box-shadow: 0 0 0 5px rgba(0, 245, 159, 0.08), 0 0 16px rgba(0, 245, 159, 0.72);
+}
+
+.experience-item:nth-child(3n) .experience-marker {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 5px rgba(255, 61, 129, 0.08), 0 0 16px rgba(255, 61, 129, 0.72);
+}
+
+.experience-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.experience-header .card-meta {
+  margin-bottom: 0;
+}
+
+.experience-type {
+  max-width: 100%;
+  padding: 5px 9px;
+  border: 1px solid rgba(0, 245, 159, 0.3);
+  border-radius: 999px;
+  color: var(--green);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.8px;
+  line-height: 1.2;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.experience-organization {
+  margin: -4px 0 14px;
+  color: var(--cyan);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.5px;
+}
+
+.experience-highlights {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 18px;
+  padding-left: 18px;
+  color: var(--muted-strong);
+}
+
+.experience-highlights li::marker {
+  color: var(--green);
+}
+
 .skill-card,
 .project-card,
 .cert-card,
@@ -1041,6 +1146,35 @@ textarea:focus {
   padding: 24px;
 }
 
+.profile-image-editor {
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(0, 213, 255, 0.12);
+}
+
+.admin-avatar-preview {
+  width: 104px;
+  height: 104px;
+  display: block;
+  border: 1px solid rgba(0, 213, 255, 0.4);
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: var(--shadow-cyan);
+}
+
+.profile-image-controls {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.profile-image-controls .form-status {
+  min-height: 0;
+}
+
 .admin-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1270,6 +1404,25 @@ textarea:focus {
     height: 240px;
   }
 
+  .experience-timeline {
+    padding-left: 24px;
+  }
+
+  .experience-timeline::before {
+    left: 7px;
+  }
+
+  .experience-marker {
+    top: 26px;
+    left: -24px;
+    width: 11px;
+    height: 11px;
+  }
+
+  .experience-item {
+    padding: 22px 20px;
+  }
+
   .cube {
     width: 120px;
     height: 120px;
@@ -1316,6 +1469,10 @@ textarea:focus {
   }
 
   .admin-list-item {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-image-editor {
     grid-template-columns: 1fr;
   }
 

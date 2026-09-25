@@ -130,6 +130,44 @@ function renderCertifications(certifications) {
   });
 }
 
+function renderExperience(experience) {
+  const timeline = $("#experience-timeline");
+  timeline.replaceChildren();
+  experience.forEach((entry, index) => {
+    const item = createElement("article", "experience-item reveal");
+    const marker = createElement("span", "experience-marker");
+    marker.setAttribute("aria-hidden", "true");
+
+    const content = createElement("div", "experience-content");
+    const header = createElement("div", "experience-header");
+    const meta = createElement("p", "card-meta", `${String(index + 1).padStart(2, "0")} / ${entry.date}`);
+    const type = createElement("span", "experience-type", entry.type);
+    header.append(meta, type);
+
+    const role = createElement("h3", "card-title", entry.role);
+    const organization = createElement("p", "experience-organization", entry.organization);
+    const summary = createElement("p", "project-description", entry.summary);
+    const highlights = createElement("ul", "experience-highlights");
+    entry.highlights.forEach((highlight) => {
+      highlights.append(createElement("li", "", highlight));
+    });
+    const chips = createElement("div", "chip-list");
+    entry.techs.forEach((tech) => chips.append(createElement("span", "chip", tech)));
+
+    content.append(header, role, organization, summary, highlights, chips);
+    if (entry.url && entry.url !== "#") {
+      const link = createElement("a", "card-link", "View Details");
+      link.href = entry.url;
+      link.target = "_blank";
+      link.rel = "noreferrer";
+      content.append(link);
+    }
+
+    item.append(marker, content);
+    timeline.append(item);
+  });
+}
+
 function renderProjects(projects) {
   const grid = $("#projects-grid");
   grid.replaceChildren();
@@ -866,6 +904,7 @@ async function init() {
   const response = await fetch("/api/portfolio", { headers: { Accept: "application/json" } });
   const portfolio = await response.json();
   renderProfile(portfolio.profile);
+  renderExperience(portfolio.experience || []);
   renderSkills(portfolio.skills);
   renderCertifications(portfolio.certifications);
   renderProjects(portfolio.projects);

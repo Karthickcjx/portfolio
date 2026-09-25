@@ -23,6 +23,7 @@
     <main class="admin-shell">
       <nav class="admin-tabs" aria-label="Admin sections">
         <button class="admin-tab is-active" type="button" data-tab="profile-panel">Profile</button>
+        <button class="admin-tab" type="button" data-tab="experience-panel">Experience</button>
         <button class="admin-tab" type="button" data-tab="projects-panel">Projects</button>
         <button class="admin-tab" type="button" data-tab="skills-panel">Skills</button>
         <button class="admin-tab" type="button" data-tab="certs-panel">Certs</button>
@@ -31,6 +32,17 @@
 
       <section id="profile-panel" class="admin-panel is-active">
         <form id="profile-form" class="admin-form">
+          <div class="profile-image-editor">
+            <img id="admin-avatar-preview" class="admin-avatar-preview" src="/assets/profile.jpg" alt="Profile preview">
+            <div class="profile-image-controls">
+              <div class="form-field">
+                <label for="admin-avatar-file">Profile Photo</label>
+                <input id="admin-avatar-file" type="file" accept="image/png,image/jpeg,image/gif,image/webp">
+              </div>
+              <button id="avatar-upload" class="button button-secondary" type="button">Upload Photo</button>
+              <p class="form-status" data-status="avatar"></p>
+            </div>
+          </div>
           <div class="admin-grid">
             <div class="form-field">
               <label for="admin-name">Full Name</label>
@@ -94,6 +106,52 @@
           <button class="button button-primary" type="submit">Save Profile</button>
           <p class="form-status" data-status="profile"></p>
         </form>
+      </section>
+
+      <section id="experience-panel" class="admin-panel">
+        <form id="experience-form" class="admin-form">
+          <input id="experience-id" type="hidden">
+          <div class="admin-grid">
+            <div class="form-field">
+              <label for="experience-role">Role</label>
+              <input id="experience-role" required>
+            </div>
+            <div class="form-field">
+              <label for="experience-organization">Organization</label>
+              <input id="experience-organization">
+            </div>
+            <div class="form-field">
+              <label for="experience-type">Type</label>
+              <input id="experience-type" placeholder="Internship or Project Role">
+            </div>
+            <div class="form-field">
+              <label for="experience-date">Date Range</label>
+              <input id="experience-date">
+            </div>
+            <div class="form-field">
+              <label for="experience-url">Details URL</label>
+              <input id="experience-url" type="url">
+            </div>
+            <div class="form-field">
+              <label for="experience-techs">Tech Stack</label>
+              <input id="experience-techs">
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="experience-summary">Summary</label>
+            <textarea id="experience-summary" rows="4"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="experience-highlights">Highlights</label>
+            <textarea id="experience-highlights" rows="4"></textarea>
+          </div>
+          <div class="form-row">
+            <button class="button button-primary" type="submit">Save Experience</button>
+            <button id="experience-reset" class="button button-secondary" type="button">Clear</button>
+          </div>
+          <p class="form-status" data-status="experience"></p>
+        </form>
+        <div id="experience-list" class="admin-list"></div>
       </section>
 
       <section id="projects-panel" class="admin-panel">

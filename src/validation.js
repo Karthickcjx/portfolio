@@ -60,6 +60,28 @@ function normalizeStats(stats) {
   });
 }
 
+function normalizeExperience(experience) {
+  if (!Array.isArray(experience)) {
+    return [];
+  }
+
+  return experience.slice(0, 24).map((entry) => {
+    const role = asString(entry.role, 140, "Experience Role");
+    const organization = asString(entry.organization, 140);
+    return {
+      id: asString(entry.id, 120) || slugify(role || organization, "experience"),
+      role,
+      organization,
+      type: asString(entry.type, 40),
+      date: asString(entry.date, 80),
+      summary: asString(entry.summary, 700),
+      highlights: asStringArray(entry.highlights, 4, 220),
+      techs: asStringArray(entry.techs, 18, 40),
+      url: cleanUrl(entry.url, "#")
+    };
+  });
+}
+
 function normalizePortfolio(input) {
   if (!input || typeof input !== "object") {
     const error = new Error("Portfolio payload must be an object.");
@@ -88,6 +110,7 @@ function normalizePortfolio(input) {
       cubeFaces: asStringArray(profile.cubeFaces, 6, 18),
       stats: normalizeStats(profile.stats)
     },
+    experience: normalizeExperience(input.experience),
     projects: [],
     skills: [],
     certifications: []

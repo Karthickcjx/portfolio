@@ -100,11 +100,23 @@ function parseStats(value) {
         value: Number(value || 0),
         suffix: (suffix || "").trim()
       };
-    });
+  });
+}
+
+function readFileAsDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => resolve(reader.result));
+    reader.addEventListener("error", () => reject(new Error("The profile image could not be read.")));
+    reader.readAsDataURL(file);
+  });
 }
 
 function fillProfileForm() {
   const profile = state.portfolio.profile;
+  const preview = $("#admin-avatar-preview");
+  preview.src = profile.avatar || "/assets/profile.jpg";
+  preview.alt = `${profile.name || "Profile"} preview`;
   $("#admin-name").value = profile.name || "";
   $("#admin-role").value = profile.role || "";
   $("#admin-email").value = profile.email || "";
@@ -171,6 +183,52 @@ function smallButton(label, variant, onClick) {
   button.type = "button";
   button.addEventListener("click", onClick);
   return button;
+}
+
+function resetExperienceForm() {
+  $("#experience-id").value = "";
+  $("#experience-role").value = "";
+  $("#experience-organization").value = "";
+  $("#experience-type").value = "";
+  $("#experience-date").value = "";
+  $("#experience-url").value = "";
+  $("#experience-techs").value = "";
+  $("#experience-summary").value = "";
+  $("#experience-highlights").value = "";
+}
+
+function renderExperience() {
+  const list = $("#experience-list");
+  list.replaceChildren();
+  state.portfolio.experience.forEach((entry) => {
+    const edit = smallButton("Edit", "button-secondary", () => {
+      $("#experience-id").value = entry.id;
+      $("#experience-role").value = entry.role;
+      $("#experience-organization").value = entry.organization;
+      $("#experience-type").value = entry.type;
+      $("#experience-date").value = entry.date;
+      $("#experience-url").value = entry.url === "#" ? "" : entry.url;
+      $("#experience-techs").value = (entry.techs || []).join(", ");
+      $("#experience-summary").value = entry.summary;
+      $("#experience-highlights").value = (entry.highlights || []).join("\n");
+      $("#experience-role").focus();
+    });
+    const remove = smallButton("Delete", "button-danger", async () => {
+      if (!window.confirm(`Delete ${entry.role} at ${entry.organization}?`)) {
+        return;
+      }
+      state.portfolio.experience = state.portfolio.experience.filter((item) => item.id !== entry.id);
+      await savePortfolio("experience", "Experience deleted.");
+    });
+    list.append(
+      createAdminListItem(
+        entry.role,
+        `${entry.organization} - ${entry.date}`,
+        [edit, remove],
+        entry.summary
+      )
+    );
+  });
 }
 
 function resetProjectForm() {
@@ -284,6 +342,7 @@ function renderMessages() {
 
 function renderAll() {
   fillProfileForm();
+  renderExperience();
   renderProjects();
   renderSkills();
   renderCertifications();
@@ -301,6 +360,45 @@ function setupTabs() {
 }
 
 function setupForms() {
+  $("#admin-avatar-file").addEventListener("change", async () => {
+    const file = $("#admin-avatar-file").files[0];
+    if (!file) {
+      return;
+    }
+    if (!/^image\/(png|jpeg|gif|webp)$/.test(file.type) || file.size > 2 * 1024 * 1024) {
+      showStatus("avatar", "Choose a PNG, JPEG, GIF, or WebP image up to 2 MB.", true);
+      $("#admin-avatar-file").value = "";
+      return;
+    }
+    try {
+      $("#admin-avatar-preview").src = await readFileAsDataUrl(file);
+      showStatus("avatar", "Preview ready. Select Upload Photo to publish it.");
+    } catch (error) {
+      showStatus("avatar", error.message, true);
+    }
+  });
+
+  $("#avatar-upload").addEventListener("click", async () => {
+    const input = $("#admin-avatar-file");
+    const file = input.files[0];
+    if (!file) {
+      showStatus("avatar", "Choose an image first.", true);
+      return;
+    }
+    try {
+      showStatus("avatar", "Uploading...");
+      state.portfolio = await api("/api/admin/profile-image", {
+        method: "POST",
+        body: { image: await readFileAsDataUrl(file) }
+      });
+      input.value = "";
+      renderAll();
+      showStatus("avatar", "Profile photo updated.");
+    } catch (error) {
+      showStatus("avatar", error.message, true);
+    }
+  });
+
   $("#profile-form").addEventListener("submit", async (event) => {
     event.preventDefault();
     try {
@@ -334,6 +432,34 @@ function setupForms() {
       resetProjectForm();
     } catch (error) {
       showStatus("projects", error.message, true);
+    }
+  });
+
+  $("#experience-form").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    try {
+      const id = $("#experience-id").value || slugify($("#experience-role").value, "experience");
+      const experience = {
+        id,
+        role: $("#experience-role").value,
+        organization: $("#experience-organization").value,
+        type: $("#experience-type").value,
+        date: $("#experience-date").value,
+        url: $("#experience-url").value || "#",
+        techs: splitList($("#experience-techs").value),
+        summary: $("#experience-summary").value,
+        highlights: $("#experience-highlights").value.split("\n").map((item) => item.trim()).filter(Boolean)
+      };
+      const index = state.portfolio.experience.findIndex((item) => item.id === id);
+      if (index >= 0) {
+        state.portfolio.experience[index] = experience;
+      } else {
+        state.portfolio.experience.unshift(experience);
+      }
+      await savePortfolio("experience", "Experience saved.");
+      resetExperienceForm();
+    } catch (error) {
+      showStatus("experience", error.message, true);
     }
   });
 
@@ -381,6 +507,7 @@ function setupForms() {
   });
 
   $("#project-reset").addEventListener("click", resetProjectForm);
+  $("#experience-reset").addEventListener("click", resetExperienceForm);
   $("#skill-reset").addEventListener("click", resetSkillForm);
   $("#cert-reset").addEventListener("click", resetCertForm);
 }

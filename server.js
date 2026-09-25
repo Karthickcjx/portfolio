@@ -1,5 +1,7 @@
 "use strict";
 
+const crypto = require("crypto");
+const fs = require("fs/promises");
 const path = require("path");
 const compression = require("compression");
 const express = require("express");
@@ -30,6 +32,61 @@ const cspDirectives = {
   "style-src": ["'self'"]
 };
 
+const profileImageJsonParser = express.json({ limit: "4mb" });
+
+function imageSignatureMatches(buffer, signature, offset = 0) {
+  return buffer.subarray(offset, offset + signature.length).equals(Buffer.from(signature));
+}
+
+function isSupportedImageBuffer(buffer, mimeType) {
+  if (mimeType === "image/png") {
+    return imageSignatureMatches(buffer, [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+  }
+  if (mimeType === "image/jpeg") {
+    return imageSignatureMatches(buffer, [0xff, 0xd8, 0xff]);
+  }
+  if (mimeType === "image/gif") {
+    return imageSignatureMatches(buffer, Buffer.from("GIF8", "ascii"));
+  }
+  return mimeType === "image/webp"
+    && imageSignatureMatches(buffer, Buffer.from("RIFF", "ascii"))
+    && imageSignatureMatches(buffer, Buffer.from("WEBP", "ascii"), 8);
+}
+
+function isManagedProfileAvatar(avatar) {
+  return typeof avatar === "string" && /^\/assets\/profile-upload-[a-z0-9-]+\.(jpg|png|gif|webp)$/.test(avatar);
+}
+
+async function saveProfileImage(dataUrl) {
+  if (typeof dataUrl !== "string" || Buffer.byteLength(dataUrl, "utf8") > 4 * 1024 * 1024) {
+    const error = new Error("Profile image is too large.");
+    error.status = 413;
+    throw error;
+  }
+
+  const match = /^data:(image\/(?:png|jpeg|gif|webp));base64,([A-Za-z0-9+/]+={0,2})$/.exec(dataUrl);
+  if (!match) {
+    const error = new Error("Please upload a PNG, JPEG, GIF, or WebP image.");
+    error.status = 400;
+    throw error;
+  }
+
+  const [, mimeType, encoded] = match;
+  const image = Buffer.from(encoded, "base64");
+  if (!image.length || image.length > 2 * 1024 * 1024 || !isSupportedImageBuffer(image, mimeType)) {
+    const error = new Error("The profile image must be a valid image up to 2 MB.");
+    error.status = 400;
+    throw error;
+  }
+
+  const extension = mimeType === "image/jpeg" ? "jpg" : mimeType.slice("image/".length);
+  const fileName = `profile-upload-${crypto.randomUUID()}.${extension}`;
+  const assetsDir = path.join(publicDir, "assets");
+  await fs.mkdir(assetsDir, { recursive: true });
+  await fs.writeFile(path.join(assetsDir, fileName), image, { flag: "wx" });
+  return `/assets/${fileName}`;
+}
+
 if (config.isProduction) {
   cspDirectives["upgrade-insecure-requests"] = [];
 }
@@ -51,6 +108,48 @@ app.use(
 );
 
 app.use(compression());
+
+const adminApiLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  limit: 120,
+  standardHeaders: "draft-7",
+  legacyHeaders: false
+});
+
+app.post(
+  "/api/admin/profile-image",
+  adminApiLimiter,
+  auth.requireAuth,
+  profileImageJsonParser,
+  auth.requireCsrf,
+  async (req, res, next) => {
+    let avatarPath = "";
+    try {
+      const portfolio = await storage.getPortfolio();
+      const previousAvatar = portfolio.profile.avatar;
+      avatarPath = await saveProfileImage(req.body && req.body.image);
+      const nextPortfolio = {
+        ...portfolio,
+        profile: {
+          ...portfolio.profile,
+          avatar: avatarPath
+        }
+      };
+      const normalized = await storage.savePortfolio(nextPortfolio);
+
+      if (isManagedProfileAvatar(previousAvatar)) {
+        await fs.unlink(path.join(publicDir, previousAvatar.slice("/".length))).catch(() => {});
+      }
+      res.json(normalized);
+    } catch (error) {
+      if (avatarPath) {
+        await fs.unlink(path.join(publicDir, avatarPath.slice("/".length))).catch(() => {});
+      }
+      next(error);
+    }
+  }
+);
+
 app.use(express.json({ limit: "120kb" }));
 app.use(express.urlencoded({ extended: false, limit: "30kb" }));
 
@@ -67,13 +166,6 @@ const loginLimiter = rateLimit({
   standardHeaders: "draft-7",
   legacyHeaders: false,
   message: { error: "Too many login attempts. Please try again later." }
-});
-
-const adminApiLimiter = rateLimit({
-  windowMs: 60 * 1000,
-  limit: 120,
-  standardHeaders: "draft-7",
-  legacyHeaders: false
 });
 
 app.get("/healthz", (_req, res) => {
