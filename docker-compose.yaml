@@ -1,0 +1,23 @@
+services:
+  portfolio:
+    build:
+      context: ./
+    image: karthickcjx/portfolio
+    container_name: portfolio
+    ports:
+      - "80:3000"
+    volumes:
+      - portfolio-data:/app
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - TRUST_PROXY=1
+      - ADMIN_USERNAME=karthick
+      - ADMIN_PASSWORD_HASH=scrypt$16384$8$1$64$G2XNpCTy-5_-OHban5WGk7KNfVuCe6G1$1Bdx2ZpVjWktsGrH9GltIsKBt_RP2hzWm36oPuDNvLYvakqdLRh3JxNR-ItwlONMLPL9xLMElvRun1iPMnZrVw
+      - SESSION_SECRET=uxKYFkJ8Co2aGDRfOtO2NAYxGNFRBRxakQzsVvCx3-a0nussjFSU5YVXgP4iHWCv
+
+
+
+
+volumes:
+  portfolio-data: {}
