@@ -1,24 +1,32 @@
 {
   "profile": {
     "name": "Karthick Raja G",
-    "role": "DevOps & Full-Stack Developer",
-    "heroSummary": "Built six projects independently this past year, spanning React and Node full-stack apps plus AWS and Docker systems designed to hold up under real users and real failures.",
+    "role": "DevOps, Cloud & Full-Stack Developer",
+    "heroSummary": "2026 IT graduate building full-stack applications and cloud infrastructure. I work with React and Node.js, automate AWS with Terraform and Ansible, and ship applications through Jenkins, GitHub Actions, and GitOps on Kubernetes.",
     "bio": [
-      "I'm a DevOps and Full-Stack Developer pursuing B.Tech in Information Technology at Adhiparasakthi College of Engineering, Ranipet (2022-2026), with a CGPA of 7.8.",
-      "I split my time between writing application code and figuring out why something broke, with hands-on work across AWS, Docker, CI/CD, Infrastructure as Code, and serverless systems.",
+      "I'm a 2026 Information Technology graduate from Adhiparasakthi College of Engineering, Ranipet (2022-2026), with a CGPA of 7.8. I completed a DevOps internship at JSpiders from January to September 2026.",
+      "I provision infrastructure with Terraform and Ansible, deploy multi-tier AWS applications with load balancing and auto scaling, and migrate workloads to managed services including Elastic Beanstalk, RDS, ElastiCache, and Amazon MQ.",
+      "I build Jenkins and GitHub Actions pipelines, deliver to EKS through Helm and Argo CD, and use Prometheus, Grafana, and Loki for monitoring. I also built Optic, a Kubernetes desktop workspace, and verified its logs, terminals, port forwarding, and 39 resource lists against a live cluster.",
+      "Open-source recognition: Optic's Helm 4 compatibility and collapsible navigation work (15 files, 509 lines, tests included) was selected for the XERJ Corpus Hub public index as a reference for AI coding agents, with author and repository attribution under the project's MIT licence.",
       "I build full-stack systems with React and Node, automate infrastructure with Python, Bash, Terraform, boto3, and Fabric, and use AI-assisted tools to ship with more focus."
     ],
     "badges": [
       "AWS",
+      "Kubernetes",
+      "Terraform",
+      "Ansible",
+      "Helm",
+      "Argo CD",
       "Docker",
       "Jenkins",
       "GitHub Actions",
-      "Terraform",
-      "React.js",
-      "Node.js",
-      "Python",
       "Prometheus",
       "Grafana",
+      "Python",
+      "TypeScript",
+      "Electron",
+      "React.js",
+      "Node.js",
       "WebSockets",
       "JWT Auth"
     ],
@@ -27,14 +35,16 @@
     "linkedin": "https://linkedin.com/in/karthick-raja-520421263",
     "github": "https://github.com/Karthickcjx",
     "website": "https://kcthdevops.site/",
-    "education": "B.Tech IT - CGPA 7.8",
+    "education": "B.Tech IT, 2022-2026 - Adhiparasakthi College of Engineering, Ranipet - CGPA 7.8",
     "avatar": "/assets/profile-upload-ce3270cf-0163-4b0d-99d2-0dbc42870103.jpg",
     "footer": "2026 - KARTHICK RAJA G - ALL SYSTEMS ONLINE",
     "roles": [
       "DevOps Engineer",
+      "Cloud Engineer",
+      "Kubernetes Developer",
+      "Infrastructure Automation",
       "Full-Stack Developer",
       "AWS Architect",
-      "Cloud Engineer",
       "Problem Solver"
     ],
     "cubeFaces": [
@@ -48,12 +58,12 @@
     "stats": [
       {
         "label": "Projects",
-        "value": 7,
+        "value": 10,
         "suffix": ""
       },
       {
         "label": "Certs",
-        "value": 5,
+        "value": 6,
         "suffix": ""
       }
     ]
@@ -64,18 +74,22 @@
       "role": "DevOps Intern",
       "organization": "JSpiders",
       "type": "Internship",
-      "date": "Jan 2026 - Present",
-      "summary": "Administer Linux systems, automate repetitive work with Bash and Python, and provision AWS infrastructure with Terraform, boto3, and Fabric.",
+      "date": "Jan 2026 - Sep 2026",
+      "summary": "Administered Linux systems and automated repetitive tasks with Bash and Python. Provisioned AWS infrastructure with Terraform, configured it with Ansible, and used boto3 and Fabric for routine resource management.",
       "highlights": [
-        "Built a Jenkins pipeline with SonarQube quality gates and Nexus artifact management",
-        "Set up Jenkins on Ubuntu 22.04 through Vagrant and wired GitHub Actions builds with Telegram notifications"
+        "Built a Jenkins CI/CD pipeline with SonarQube quality gates and Nexus artifact management, and worked with GitHub Actions for builds.",
+        "Set up Jenkins on Ubuntu 22.04 through Vagrant and wired Telegram notifications for build status.",
+        "Worked in Agile sprints with daily standups."
       ],
       "techs": [
+        "Linux",
         "AWS",
         "Terraform",
+        "Ansible",
         "boto3",
         "Fabric",
         "Jenkins",
+        "GitHub Actions",
         "SonarQube",
         "Nexus",
         "Vagrant",
@@ -238,10 +252,78 @@
   ],
   "projects": [
     {
+      "id": "vprofile-gitops-eks",
+      "title": "vprofile GitOps - Terraform, Helm & Argo CD on EKS",
+      "date": "Nov 2026",
+      "description": "Split vprofile across infrastructure, Helm chart, and application repositories, each with its own pipeline. Terraform validates, plans, and provisions EKS, checks drift, and posts results to Slack, with a separate destroy job. Application pushes run Maven tests, Checkstyle, and a SonarQube quality gate before pushing Docker images to ECR. An image-tag pull request updates the Helm repo; merging it triggers Argo CD to deploy the new version on EKS.",
+      "url": "#",
+      "techs": [
+        "AWS EKS",
+        "Terraform",
+        "Helm",
+        "Argo CD",
+        "GitHub Actions",
+        "Maven",
+        "Checkstyle",
+        "SonarQube",
+        "Docker",
+        "ECR"
+      ],
+      "stats": [
+        "3 repositories",
+        "GitOps delivery"
+      ]
+    },
+    {
+      "id": "optic-kubernetes-workspace",
+      "title": "Optic - Kubernetes Desktop Workspace",
+      "date": "Oct 2026",
+      "description": "Built a desktop Kubernetes workspace with live resource tables, pod logs, tabbed terminals, YAML editing, scaling, rollouts, and Helm installs. CPU and memory charts use Prometheus with a metrics-server fallback. Tests run against a fake Kubernetes API; GitHub Actions runs unit tests, Electron smoke tests, and packaging. Verified logs, pod shells, port forwarding, and all 39 resource lists on a live cluster, including diagnosing an Argo CD ImagePullBackOff caused by an unavailable Redis image tag.",
+      "url": "https://github.com/Karthickcjx/Optic",
+      "techs": [
+        "Electron",
+        "TypeScript",
+        "React",
+        "Zustand",
+        "Kubernetes",
+        "Helm",
+        "Prometheus",
+        "GitHub Actions"
+      ],
+      "stats": [
+        "39 resource lists",
+        "Live-cluster verified"
+      ]
+    },
+    {
+      "id": "vprofile-kubernetes",
+      "title": "vprofile on Kubernetes - Multi-tier App Deployment",
+      "date": "Oct 2026",
+      "description": "Deployed Tomcat, RabbitMQ, Memcache, and MySQL in separate Kubernetes pods behind their own Services. An AWS Application Load Balancer and Ingress route external traffic only to Tomcat. MySQL uses a PersistentVolumeClaim, StorageClass, and Amazon EBS volume to preserve data through pod restarts. Database and RabbitMQ credentials are stored in Kubernetes Secrets.",
+      "url": "#",
+      "techs": [
+        "Kubernetes",
+        "AWS ALB",
+        "Ingress",
+        "Amazon EBS",
+        "PVC",
+        "StorageClass",
+        "Secrets",
+        "Tomcat",
+        "RabbitMQ",
+        "Memcache",
+        "MySQL"
+      ],
+      "stats": [
+        "Persistent storage",
+        "Multi-tier deployment"
+      ]
+    },
+    {
       "id": "monitoring-logging-stack",
       "title": "Monitoring & Logging Stack - Prometheus, Grafana, Loki on AWS",
       "date": "Sep 2026",
-      "description": "Set up a monitoring stack across four EC2 instances: Prometheus scrapes host metrics from a Python Flask app server, Promtail pushes app logs to Loki, and Grafana reads from both to build dashboards. Locked each tier down with Security Groups and admin or service-only access rules.",
+      "description": "Built a monitoring and logging stack across four EC2 instances. Prometheus collects host metrics from a Python Flask app server, Promtail ships its logs to Loki, and Grafana reads both for dashboards. Security Groups expose only ports 80/443 publicly, restrict Grafana and Prometheus to admin IPs or VPN access, and allow Loki traffic only from the app server and Grafana.",
       "url": "#",
       "techs": [
         "AWS EC2",
@@ -282,19 +364,26 @@
       "id": "vprofile-project-aws-microservices-deployment",
       "title": "vprofile-project - AWS Microservices Deployment",
       "date": "Jun 2026 - Jul 2026",
-      "description": "Set up a multi-tier architecture on AWS with EC2 instances behind an Elastic Load Balancer and Auto Scaling. Ran Tomcat, RabbitMQ, Memcache, and MySQL in separate Security Groups and pointed DNS through Route 53.",
+      "description": "Deployed a multi-tier AWS application on EC2 behind an Elastic Load Balancer with Auto Scaling, separate Security Groups for Tomcat, RabbitMQ, Memcache, and MySQL, and Route 53 DNS. Later migrated Tomcat to Elastic Beanstalk, MySQL to RDS, Memcached to ElastiCache, and RabbitMQ to Amazon MQ. S3 stores artifacts, Route 53 and CloudFront handle delivery, and CloudWatch monitors the load balancer and instances.",
       "url": "https://github.com/Karthickcjx/vprofile-project",
       "techs": [
         "AWS EC2",
         "ELB",
         "Auto Scaling",
         "Route 53",
+        "Elastic Beanstalk",
+        "RDS",
+        "ElastiCache",
+        "Amazon MQ",
+        "S3",
+        "CloudFront",
+        "CloudWatch",
         "Tomcat",
         "RabbitMQ",
         "MySQL"
       ],
       "stats": [
-        "AWS DevOps",
+        "Managed-service migration",
         "Auto Scaling"
       ]
     },
@@ -378,10 +467,10 @@
   ],
   "skills": [
     {
-      "category": "Cloud & DevOps",
+      "category": "AWS Cloud",
       "items": [
-        "AWS EC2",
-        "AWS S3",
+        "EC2",
+        "S3",
         "CloudFront",
         "Lambda",
         "API Gateway",
@@ -389,56 +478,89 @@
         "ELB",
         "Auto Scaling",
         "Route 53",
-        "ECR/ECS",
+        "ECR",
+        "ECS",
+        "EKS",
         "VPC",
+        "Elastic Beanstalk",
+        "RDS",
+        "ElastiCache",
+        "Amazon MQ",
+        "CloudWatch"
+      ]
+    },
+    {
+      "category": "Containers & Infrastructure",
+      "items": [
         "Docker",
+        "Kubernetes",
+        "Helm",
+        "Argo CD",
         "Terraform",
         "Ansible",
         "Vagrant",
+        "Linux"
+      ]
+    },
+    {
+      "category": "CI/CD & Observability",
+      "items": [
         "Jenkins",
         "GitHub Actions",
         "SonarQube",
         "Nexus",
         "Trivy",
-        "boto3",
-        "Fabric"
-      ]
-    },
-    {
-      "category": "Languages & Frameworks",
-      "items": [
-        "JavaScript",
-        "Node.js",
-        "React.js",
-        "Python",
-        "Java",
-        "Shell/Bash",
-        "RESTful APIs",
-        "JWT Auth",
-        "Agile",
-        "LLM",
-        "Gen AI",
-        "Agentic AI"
-      ]
-    },
-    {
-      "category": "Databases & Tools",
-      "items": [
-        "MySQL",
-        "DynamoDB",
-        "Redis",
-        "Prisma",
-        "Git/GitHub",
-        "WebSockets",
-        "CCNA Networking",
+        "Maven",
+        "Checkstyle",
         "Prometheus",
         "Grafana",
         "Loki",
         "Promtail"
       ]
+    },
+    {
+      "category": "Languages & Application Development",
+      "items": [
+        "Python",
+        "boto3",
+        "Fabric",
+        "Java",
+        "Shell/Bash",
+        "TypeScript",
+        "React.js",
+        "Electron",
+        "Zustand",
+        "JWT Auth",
+        "WebSockets",
+        "JavaScript",
+        "Node.js",
+        "RESTful APIs"
+      ]
+    },
+    {
+      "category": "Data, Networking & Collaboration",
+      "items": [
+        "MySQL",
+        "Redis",
+        "Prisma",
+        "Git/GitHub",
+        "IPv4/IPv6",
+        "Router & Switch Configuration",
+        "Agile Sprints",
+        "LLM",
+        "GenAI",
+        "Agentic AI",
+        "CCNA Networking"
+      ]
     }
   ],
   "certifications": [
+    {
+      "id": "decoding-devops-udemy",
+      "name": "Decoding DevOps From Basics to Advanced Projects with AI",
+      "issuer": "Udemy",
+      "year": "2026"
+    },
     {
       "id": "serverless-computing-with-aws-lambda",
       "name": "Serverless Computing with AWS Lambda",
