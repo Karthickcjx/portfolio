@@ -82,24 +82,11 @@ function normalizeExperience(experience) {
   });
 }
 
-function requireObject(value, label) {
-  if (!value || typeof value !== "object" || Array.isArray(value)) {
-    const error = new Error(`${label} must be an object.`);
+function normalizePortfolio(input) {
+  if (!input || typeof input !== "object") {
+    const error = new Error("Portfolio payload must be an object.");
     error.status = 400;
     throw error;
-  }
-}
-
-function normalizePortfolio(input) {
-  requireObject(input, "Portfolio");
-  if (input.profile !== undefined) requireObject(input.profile, "Profile");
-  for (const key of ["experience", "projects", "skills", "certifications"]) {
-    if (Array.isArray(input[key])) {
-      input[key].forEach((entry) => requireObject(entry, key));
-    }
-  }
-  if (Array.isArray(input.profile?.stats)) {
-    input.profile.stats.forEach((entry) => requireObject(entry, "Stat"));
   }
 
   const profile = input.profile || {};
@@ -116,9 +103,9 @@ function normalizePortfolio(input) {
       github: cleanUrl(profile.github),
       website: cleanUrl(profile.website),
       education: asString(profile.education, 120),
-      avatar: asString(profile.avatar, 120, "/assets/profile.svg").startsWith("/")
-        ? asString(profile.avatar, 120, "/assets/profile.svg")
-        : "/assets/profile.svg",
+      avatar: asString(profile.avatar, 120, "/assets/profile.jpg").startsWith("/")
+        ? asString(profile.avatar, 120, "/assets/profile.jpg")
+        : "/assets/profile.jpg",
       footer: asString(profile.footer, 120),
       roles: asStringArray(profile.roles, 8, 40),
       cubeFaces: asStringArray(profile.cubeFaces, 6, 18),

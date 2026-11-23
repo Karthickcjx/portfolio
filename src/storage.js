@@ -41,7 +41,7 @@ function createStorage(config) {
   }
 
   function savePortfolio(nextPortfolio) {
-    portfolioQueue = portfolioQueue.catch(() => {}).then(async () => {
+    portfolioQueue = portfolioQueue.then(async () => {
       const normalized = normalizePortfolio(nextPortfolio);
       await writeJsonAtomic(portfolioPath, normalized);
       return normalized;
@@ -55,7 +55,7 @@ function createStorage(config) {
   }
 
   function addMessage(message) {
-    messageQueue = messageQueue.catch(() => {}).then(async () => {
+    messageQueue = messageQueue.then(async () => {
       const messages = await getMessages();
       const nextMessages = [message, ...messages].slice(0, 250);
       await writeJsonAtomic(messagesPath, nextMessages);
@@ -65,7 +65,7 @@ function createStorage(config) {
   }
 
   function deleteMessage(id) {
-    messageQueue = messageQueue.catch(() => {}).then(async () => {
+    messageQueue = messageQueue.then(async () => {
       const messages = await getMessages();
       const nextMessages = messages.filter((message) => message.id !== id);
       await writeJsonAtomic(messagesPath, nextMessages);

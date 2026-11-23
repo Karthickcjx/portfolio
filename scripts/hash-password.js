@@ -5,7 +5,7 @@ const { hashPassword, isStrongPassword } = require("../src/password");
 
 async function main() {
   const provided = process.argv.slice(2).join(" ");
-  const password = provided || `Aa1!${crypto.randomBytes(24).toString("base64url")}`;
+  const password = provided || crypto.randomBytes(24).toString("base64url");
 
   if (!isStrongPassword(password)) {
     console.error("Password must be at least 14 characters and include uppercase, lowercase, number, and symbol.");

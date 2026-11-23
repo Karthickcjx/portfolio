@@ -5,6 +5,3 @@ npm-debug.log
 .env
 data/messages.json
 *.md
-
-.env.*
-.admin-bootstrap.json
