@@ -12,6 +12,7 @@ const { makeAuth } = require("./src/auth");
 const { verifyPassword } = require("./src/password");
 const { createStorage } = require("./src/storage");
 const { normalizeContact } = require("./src/validation");
+const { renderPortfolioPage } = require("./src/render");
 
 const app = express();
 const auth = makeAuth(config);
@@ -287,6 +288,19 @@ app.delete("/api/admin/messages/:id", auth.requireCsrf, async (req, res, next) =
   try {
     await storage.deleteMessage(req.params.id);
     res.json({ ok: true });
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.get(["/", "/index.html"], async (_req, res, next) => {
+  try {
+    const [template, portfolio] = await Promise.all([
+      fs.readFile(path.join(publicDir, "index.html"), "utf8"),
+      storage.getPortfolio()
+    ]);
+    res.set("Cache-Control", "no-store");
+    res.type("html").send(renderPortfolioPage(template, portfolio));
   } catch (error) {
     next(error);
   }

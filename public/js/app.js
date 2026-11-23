@@ -66,7 +66,7 @@ function renderCube(labels) {
 function renderProfile(profile) {
   document.title = `${profile.name} - ${profile.role}`;
   const avatar = $("#profile-avatar");
-  avatar.src = profile.avatar || "/assets/profile.jpg";
+  avatar.src = profile.avatar || "/assets/profile.svg";
   avatar.alt = profile.name;
   setText("#profile-name", profile.name);
   setText("#hero-summary", profile.heroSummary);
@@ -187,7 +187,8 @@ function renderProjects(projects) {
     link.href = project.url || "#";
     link.target = "_blank";
     link.rel = "noreferrer";
-    card.append(meta, title, description, stats, chips, link);
+    card.append(meta, title, description, stats, chips);
+    if (project.url && project.url !== "#") card.append(link);
     grid.append(card);
   });
   observeReveal();
@@ -367,7 +368,7 @@ function setupAnchorNavigation() {
       return false;
     }
 
-    const target = $(hash);
+    const target = document.getElementById(decodeURIComponent(hash.slice(1)));
     if (!target) {
       return false;
     }
@@ -432,7 +433,16 @@ function setupNavMenu() {
   function setOpen(open) {
     header.classList.toggle("is-open", open);
     toggle.setAttribute("aria-expanded", String(open));
+    nav.inert = window.innerWidth <= NAV_BREAKPOINT && !open;
   }
+
+  setOpen(false);
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && header.classList.contains("is-open")) {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
 
   toggle.addEventListener("click", () => {
     setOpen(!header.classList.contains("is-open"));
@@ -457,9 +467,7 @@ function setupNavMenu() {
   });
 
   window.addEventListener("resize", () => {
-    if (window.innerWidth > NAV_BREAKPOINT) {
-      setOpen(false);
-    }
+    setOpen(false);
   });
 }
 
@@ -505,7 +513,7 @@ function setupContactForm() {
       name: $("#contact-name").value,
       email: $("#contact-email-input").value,
       message: $("#contact-message").value,
-      website: $("#contact-website").value
+      website: $("#contact-honeypot").value
     };
 
     try {
@@ -905,6 +913,7 @@ async function init() {
   setupCanvas();
   setupContactForm();
   const response = await fetch("/api/portfolio", { headers: { Accept: "application/json" } });
+  if (!response.ok) throw new Error("Portfolio could not be loaded.");
   const portfolio = await response.json();
   renderProfile(portfolio.profile);
   renderExperience(portfolio.experience || []);

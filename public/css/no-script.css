@@ -1,0 +1,5 @@
+#cursor-core, #cursor-ring, .nav-toggle { display: none; }
+@media (max-width: 900px) {
+  .site-header { position: static; }
+  .nav-links { visibility: visible; max-height: none; opacity: 1; pointer-events: auto; flex-direction: row; flex-wrap: wrap; padding-top: 14px; }
+}

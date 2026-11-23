@@ -115,7 +115,7 @@ function readFileAsDataUrl(file) {
 function fillProfileForm() {
   const profile = state.portfolio.profile;
   const preview = $("#admin-avatar-preview");
-  preview.src = profile.avatar || "/assets/profile.jpg";
+  preview.src = profile.avatar || "/assets/profile.svg";
   preview.alt = `${profile.name || "Profile"} preview`;
   $("#admin-name").value = profile.name || "";
   $("#admin-role").value = profile.role || "";
@@ -343,7 +343,6 @@ function renderMessages() {
 }
 
 function renderAll() {
-  fillProfileForm();
   renderExperience();
   renderProjects();
   renderSkills();
@@ -394,6 +393,7 @@ function setupForms() {
         body: { image: await readFileAsDataUrl(file) }
       });
       input.value = "";
+      $("#admin-avatar-preview").src = state.portfolio.profile.avatar;
       renderAll();
       showStatus("avatar", "Profile photo updated.");
     } catch (error) {
@@ -414,7 +414,7 @@ function setupForms() {
   $("#project-form").addEventListener("submit", async (event) => {
     event.preventDefault();
     try {
-      const id = $("#project-id").value || slugify($("#project-title").value, "project");
+      const id = $("#project-id").value || crypto.randomUUID();
       const project = {
         id,
         title: $("#project-title").value,
@@ -440,7 +440,7 @@ function setupForms() {
   $("#experience-form").addEventListener("submit", async (event) => {
     event.preventDefault();
     try {
-      const id = $("#experience-id").value || slugify($("#experience-role").value, "experience");
+      const id = $("#experience-id").value || crypto.randomUUID();
       const experience = {
         id,
         role: $("#experience-role").value,
@@ -488,7 +488,7 @@ function setupForms() {
   $("#cert-form").addEventListener("submit", async (event) => {
     event.preventDefault();
     try {
-      const id = $("#cert-id").value || slugify($("#cert-name").value, "cert");
+      const id = $("#cert-id").value || crypto.randomUUID();
       const certification = {
         id,
         name: $("#cert-name").value,
@@ -521,6 +521,7 @@ async function init() {
   state.csrfToken = session.csrfToken;
   state.portfolio = await api("/api/admin/portfolio");
   state.messages = await api("/api/admin/messages");
+  fillProfileForm();
   renderAll();
   renderMessages();
 
