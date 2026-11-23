@@ -109,7 +109,7 @@ function normalizePortfolio(input) {
       role: asString(profile.role, 120, "DevOps & Full-Stack Developer"),
       heroSummary: asString(profile.heroSummary, 320),
       bio: asStringArray(profile.bio, 5, 360),
-      badges: asStringArray(profile.badges, 24, 40),
+      badges: asStringArray(profile.badges, 16, 40),
       email: asString(profile.email, 160),
       phone: asString(profile.phone, 40),
       linkedin: cleanUrl(profile.linkedin),
